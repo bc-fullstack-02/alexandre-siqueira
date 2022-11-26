@@ -4,6 +4,7 @@
   "description": "API Social Network",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +16,17 @@
   "bugs": {
     "url": "https://github.com/bc-fullstack-02/alexandre-siqueira/issues"
   },
-  "homepage": "https://github.com/bc-fullstack-02/alexandre-siqueira#readme"
+  "homepage": "https://github.com/bc-fullstack-02/alexandre-siqueira#readme",
+  "devDependencies": {
+    "eslint": "^8.28.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "helmet": "^6.0.0",
+    "mongoose": "^6.7.3",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.20"
+  }
 }
