@@ -19,8 +19,6 @@ const {
 
 /* const defaultOptions = require('./swagger.json'); //swagger
 const options = Object,assign(defaultOptions, {basedir: __dirname}) //swagger */
-
-
 /* const expressSwagger = esg(app);
 expressSwagger(opitions); */
 
@@ -39,6 +37,7 @@ app.use((req, res, next) =>
   Connection.then(() => next()).catch((err) => next(err))
 )
 
+app.use('/v1/security', SecurityRouter)
 app.use('/v1/users', UserRouter)
 
 app.use(function (req, res, next) {
