@@ -6,7 +6,11 @@ const path = require('path');
 const createError = require('http-errors')
 const helmet = require('helmet')
 const cors = require('cors')
-const { Connection } = require('./models')
+const jwt = require('jsonwebtoken')
+const { AuthUser } = require('./middlewares')
+const { Connection, User } = require('./models')
+
+const JWT_PASS = process.env.JWT_PASS || 'acessq1w2e3r4password'
 
 const {
     PostRouter,
@@ -15,7 +19,9 @@ const {
     SecurityRouter,
     ProfileRouter,
     FeedRouter
-  } = require('./routes')
+  } = require('./routes');
+const { verify } = require('crypto');
+const { JsonWebTokenError } = require('jsonwebtoken');
 
 /* const defaultOptions = require('./swagger.json'); //swagger
 const options = Object,assign(defaultOptions, {basedir: __dirname}) //swagger */
@@ -32,13 +38,13 @@ app.use(helmet())
 app.use(cors())
 app.use(bodyParser.json())
 
-// create connection with mongo
 app.use((req, res, next) =>
   Connection.then(() => next()).catch((err) => next(err))
 )
 
 app.use('/v1/security', SecurityRouter)
-app.use('/v1/users', UserRouter)
+app.use('/v1/users', AuthUser, UserRouter)
+
 
 app.use(function (req, res, next) {
     const err = createError(404)

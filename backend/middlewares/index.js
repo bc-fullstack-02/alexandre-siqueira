@@ -1,0 +1,1 @@
+exports.AuthUser = require('./authUser')

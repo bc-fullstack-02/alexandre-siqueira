@@ -14,7 +14,7 @@ securityRouter.route('/register').post((req, res, next) => Promise.resolve()
     .then((user) => new Profile({ name: req.body.name, user: user._id, password: user.password }).save()
         .then((profile) => User.findByIdAndUpdate(user._id, { profile }))
     )
-    .then((user) => removePassword(user)) // function remove password from helpers
+    .then((user) => removePassword(user)) // function to remove password from helpers
     .then((user) => res.status(201).json(user))
     .catch((err) => next(err))
 )
