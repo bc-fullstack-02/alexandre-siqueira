@@ -1,9 +1,7 @@
-//remove password from user for Response
+//remove password 
 const removePassword = function (data){
     const user = { ...data }
-    console.log(user)
     delete user._doc.password
-    console.log(user)
     return user._doc
 }
 

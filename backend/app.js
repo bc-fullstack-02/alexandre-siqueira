@@ -7,7 +7,7 @@ const createError = require('http-errors')
 const helmet = require('helmet')
 const cors = require('cors')
 const jwt = require('jsonwebtoken')
-const { AuthUser } = require('./middlewares')
+const {AuthUser } = require('./middlewares')
 const { Connection, User } = require('./models')
 
 const JWT_PASS = process.env.JWT_PASS || 'acessq1w2e3r4password'
@@ -44,6 +44,7 @@ app.use((req, res, next) =>
 
 app.use('/v1/security', SecurityRouter)
 app.use('/v1/users', AuthUser, UserRouter)
+app.use('/v1/posts', AuthUser, PostRouter)
 
 
 app.use(function (req, res, next) {
