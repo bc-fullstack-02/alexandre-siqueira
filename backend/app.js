@@ -6,27 +6,12 @@ const path = require('path');
 const createError = require('http-errors')
 const helmet = require('helmet')
 const cors = require('cors')
-const jwt = require('jsonwebtoken')
+const swaggerUI = require('swagger-ui-express')
+const swaggerDOC = require('./swagger.json')
 const {AuthUser } = require('./middlewares')
-const { Connection, User } = require('./models')
+const { Connection } = require('./models')
 
-const JWT_PASS = process.env.JWT_PASS || 'acessq1w2e3r4password'
-
-const {
-    PostRouter,
-    CommentRouter,
-    UserRouter,
-    SecurityRouter,
-    ProfileRouter,
-    FeedRouter
-  } = require('./routes');
-const { verify } = require('crypto');
-const { JsonWebTokenError } = require('jsonwebtoken');
-
-/* const defaultOptions = require('./swagger.json'); //swagger
-const options = Object,assign(defaultOptions, {basedir: __dirname}) //swagger */
-/* const expressSwagger = esg(app);
-expressSwagger(opitions); */
+const { PostRouter, CommentRouter, UserRouter, SecurityRouter, ProfileRouter, FeedRouter } = require('./routes');
 
 app.use((req, res, next) =>
   Connection.then(() => next()).catch((err) => next(err))
@@ -38,13 +23,19 @@ app.use(helmet())
 app.use(cors())
 app.use(bodyParser.json())
 
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDOC))
+
 app.use((req, res, next) =>
   Connection.then(() => next()).catch((err) => next(err))
 )
 
+PostRouter.use('/', AuthUser, CommentRouter)
 app.use('/v1/security', SecurityRouter)
+app.use('/v1/feed', AuthUser, FeedRouter)
 app.use('/v1/users', AuthUser, UserRouter)
 app.use('/v1/posts', AuthUser, PostRouter)
+app.use('/v1/profiles', AuthUser, ProfileRouter)
+
 
 
 app.use(function (req, res, next) {
