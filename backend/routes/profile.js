@@ -30,17 +30,17 @@ profileRouter.route('/:id/follow')
   .then(() => Profile.findOneAndUpdate(
       { _id: req.params.id }, { $push: { followers: req.user.profile._id}}, { new: true }))
   .then(() => Profile.findOneAndUpdate(
-      { _id: req.user.profile._id }, { $push: { following: req.params._id}}, { new: true }))
+      { _id: req.user.profile._id }, { $push: { following: req.params.id}}, { new: true }))
   .then((data) => res.status(203).json(data))
   .catch((err) => next(err)))
 
 profileRouter.route('/:id/unfollow')
 .post((req, res, next) => Promise.resolve()
-  .then(() => Profile.findOneAndUpdate(
-      { _id: req.params.id }, { $pull: { followers: req.user.profile._id}}, { new: true }))
-  .then(() => Profile.findOneAndUpdate(
-      { _id: req.user.profile._id }, { $pull: { following: req.params._id}}, { new: true }))
-  .then((data) => res.status(203).json(data))
+.then(() => Profile.findOneAndUpdate(
+  { _id: req.params.id }, { $pull: { followers: req.user.profile._id}}, { new: true }))
+.then(() => Profile.findOneAndUpdate(
+  { _id: req.user.profile._id }, { $pull: { following: req.params.id}}, { new: true }))
+.then((data) => res.status(203).json(data))
   .catch((err) => next(err)))
 
 module.exports = profileRouter

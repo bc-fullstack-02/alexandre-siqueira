@@ -31,7 +31,7 @@
         "description": "Comment Actions"
       },
       {
-        "name": "profile",
+        "name": "profiles",
         "description": "Profile Actions"
       },
       {
@@ -922,7 +922,7 @@
               "name": "q",
               "schema": {
                 "type": "string",
-                "example": "Kelly Castelo"
+                "example": "Alexandre Siqueira"
               },
               "required": true,
               "description": "profile's name"
@@ -950,7 +950,49 @@
           ]
         }
       },
-      "/profile/:id/follow": {
+      "/profiles/{id}": {
+        "get": {
+          "tags": ["profile"],
+          "summary": "Find profiles by id",
+          "description": "Find profiles by id",
+          "operationId": "findProfileById",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "schema": {
+                "type": "string"
+              },
+              "required": true,
+              "description": "uuid of the profile to get"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ProfileResponse"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "UNAUTHORIZED"
+            },
+            "404": {
+              "description": "NOT FOUND"
+            }
+          },
+          "security": [
+            {
+              "BearerAuth": {}
+            }
+          ]
+        }
+      },
+      "/profiles/:id/follow": {
         "post": {
           "tags": ["profile"],
           "summary": "Follow a profile",
@@ -995,7 +1037,7 @@
           ]
         }
       },
-      "/profile/:id/unfollow": {
+      "/profiles/:id/unfollow": {
         "post": {
           "tags": ["profile"],
           "summary": "Unfollow a profile",
