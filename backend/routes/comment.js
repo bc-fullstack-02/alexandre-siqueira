@@ -6,7 +6,7 @@ const { Comment, Post } = require("../models");
 commentRouter
   .param("postId", (req, res, next, id) => Promise.resolve()
       .then(() => Post.findById(id))
-      .then((post) => (post ? next() : next(createError(404))))
+      .then((post) => post ? next() : next(createError(404)))
       .catch((err) => next(err))
   )
   .route("/:postId/comments")
@@ -33,7 +33,7 @@ commentRouter
 commentRouter
   .param("postId", (req, res, next, id) => Promise.resolve()
       .then(() => Post.findById(id))
-      .then((post) => (post ? next() : next(createError(404))))
+      .then((post) => post ? next() : next(createError(404)))
       .catch((err) => next(err)))
 
   .route("/:postId/comments/:id")
@@ -55,7 +55,7 @@ commentRouter
 commentRouter
   .param("postId", (req, res, next, id) => Promise.resolve()
       .then(() => Post.findById(id))
-      .then((post) => (post ? next() : next(createError(404))))
+      .then((post) => post ? next() : next(createError(404)))
       .catch((err) => next(err)))
 
   .route("/:postId/comments/:id/like")
@@ -69,7 +69,7 @@ commentRouter
   .param("postId", (req, res, next, id) =>
     Promise.resolve()
       .then(() => Post.findById(id))
-      .then((post) => (post ? next() : next(createError(404))))
+      .then((post) => post ? next() : next(createError(404)))
       .catch((err) => next(err))
   )
   .route("/:postId/comments/:id/unlike")

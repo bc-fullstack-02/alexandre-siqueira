@@ -8,7 +8,7 @@ const helmet = require('helmet')
 const cors = require('cors')
 const swaggerUI = require('swagger-ui-express')
 const swaggerDOC = require('./swagger.json')
-const {AuthUser } = require('./middlewares')
+const { AuthUser, ErrorHandler } = require('./middlewares')
 const { Connection } = require('./models')
 
 const { PostRouter, CommentRouter, UserRouter, SecurityRouter, ProfileRouter, FeedRouter } = require('./routes');
@@ -36,11 +36,11 @@ app.use('/v1/users', AuthUser, UserRouter)
 app.use('/v1/posts', AuthUser, PostRouter)
 app.use('/v1/profiles', AuthUser, ProfileRouter)
 
-
-
 app.use(function (req, res, next) {
     const err = createError(404)
     next(err)
 })
+
+app.use(ErrorHandler)
 
 module.exports = app
