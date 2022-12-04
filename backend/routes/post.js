@@ -12,7 +12,8 @@ profileRouter.route('/')
 
   .post((req, res, next) => Promise.resolve()
     .then(() => new Post({ ...req.body, profile: req.user.profile._id }).save())
-    .then((data) => res.status(200).json(data))
+    .then((args) => req.publish('post', req.user.profile.followers, args))
+    .then((data) => res.status(201).json(data))
     .catch(err => next(err)))
 
 profileRouter.route('/:id')
@@ -33,13 +34,14 @@ profileRouter.route('/:id')
 
 profileRouter.route('/:id/like')
   .post((req, res, next) => Promise.resolve()
-    .then(() => Post.findByIdAndUpdate({ _id: req.params.id }, { $push: { likes: req.user.profile._id }}, { runValidators: true, new: true }))
+    .then(() => Post.findByIdAndUpdate({ _id: req.params.id }, { $addToSet: { likes: req.user.profile._id }}, { runValidators: true, new: true }))
+    .then(args => req.publish('post-like', [args.profile], args))
     .then((data) => res.status(203).json(data))
     .catch(err => next(err)))
 
 profileRouter.route('/:id/unlike')
   .post((req, res, next) => Promise.resolve()
-    .then(() => Post.findByIdAndUpdate({ _id: req.params.id }, { $pull: { likes: req.user.profile._id }}, { runValidators: true, new: true }))
+    .then(() => Post.findByIdAndUpdate({ _id: req.params.id }, { $pull: { likes: req.user.profile._id }}, { runValidators: true, new: true }))    
     .then((data) => res.status(203).json(data))
     .catch(err => next(err)))
 

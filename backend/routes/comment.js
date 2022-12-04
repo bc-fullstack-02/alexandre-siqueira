@@ -11,23 +11,21 @@ commentRouter
   )
   .route("/:postId/comments")
   .get((req, res) =>Promise.resolve()
-      .then(() => Comment.find({ post: req.params.postId }).select("-post").populate("profile"))
+      .then(() => Comment.find({ post: req.params.postId }).populate("profile"))
       .then((data) => res.status(200).json(data))
       .catch((err) => next(err))
   )
   .post((req, res, next) => Promise.resolve()
-      .then(() => new Comment(Object
-          .assign(
+      .then(() => new Comment(Object.assign(
             { ...req.body, profile: req.user.profile._id },
             { post: req.params.postId }
           )).save())
-      .then((comment) => Post.findById(comment.post).populate("profile")
+      .then((comment) => Post.findById(comment.post)
           .then((post) => Object.assign(post, { comments: [...post.comments, comment._id] }))
           .then((post) => Post.findByIdAndUpdate(comment.post, post, { runValidators: true, new: true }))
-          .then(({ ...data }) => data._doc)
-          .then(({ post, ...data }) => data))
+          .then(args => req.publish('comment', [args.profile], args))
       .then((data) => res.status(201).json(data))
-      .catch((err) => next(err))
+      .catch((err) => next(err)))
   )
 
 commentRouter
@@ -60,7 +58,8 @@ commentRouter
 
   .route("/:postId/comments/:id/like")
   .post((req, res, next) => Promise.resolve()
-    .then(() => Comment.findByIdAndUpdate({ _id: req.params.id }, { $push: { likes: req.user.profile._id }}, { runValidators: true, new: true }))
+    .then(() => Comment.findByIdAndUpdate({ _id: req.params.id }, { $addToSet: { likes: req.user.profile._id }}, { runValidators: true, new: true }))
+    .then(args => req.publish("comment-like", [args.profile], args))
     .then((data) => res.status(203).json(data))
     .catch(err => next(err)))
 

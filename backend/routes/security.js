@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken')
 const removePassword = require('../helpers')
 
 const { User, Profile } = require('../models')
-const JWT_PASS = process.env.TOKEN_PASS || 'acessq1w2e3r4password'
+const JWT_PASS = process.env.JWT_PASS || 'acessq1w2e3r4password'
 
 securityRouter.route('/register')
 .post((req, res, next) => Promise.resolve()

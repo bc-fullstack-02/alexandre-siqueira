@@ -881,7 +881,7 @@
       },
       "/profiles": {
         "get": {
-          "tags": ["profile"],
+          "tags": ["profiles"],
           "summary": "Find all profiles",
           "description": "Find all profiles",
           "operationId": "findProfiles",
@@ -893,7 +893,7 @@
                   "schema": {
                     "type": "array",
                     "items": {
-                      "$ref": "#/components/schemas/ProfileResponse"
+                      "$ref": "#/components/schemas/ProfilesResponse"
                     }
                   }
                 }
@@ -912,7 +912,7 @@
       },
       "/profiles/search?q={q}": {
         "get": {
-          "tags": ["profile"],
+          "tags": ["profiles"],
           "summary": "Search for a profile by its name",
           "description": "Search for a profile by its name",
           "operationId": "findProfileByName",
@@ -934,7 +934,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/ProfileResponse"
+                    "$ref": "#/components/schemas/ProfilesResponse"
                   }
                 }
               }
@@ -952,7 +952,7 @@
       },
       "/profiles/{id}": {
         "get": {
-          "tags": ["profile"],
+          "tags": ["profiles"],
           "summary": "Find profiles by id",
           "description": "Find profiles by id",
           "operationId": "findProfileById",
@@ -973,7 +973,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/ProfileResponse"
+                    "$ref": "#/components/schemas/ProfilesResponse"
                   }
                 }
               }
@@ -992,9 +992,9 @@
           ]
         }
       },
-      "/profiles/:id/follow": {
+      "/profiles/{id}/follow": {
         "post": {
-          "tags": ["profile"],
+          "tags": ["profiles"],
           "summary": "Follow a profile",
           "description": "Follow a profile, returns 400 if you're already following this profile",
           "operationId": "followProfile",
@@ -1015,7 +1015,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/ProfileResponse"
+                    "$ref": "#/components/schemas/ProfilesResponse"
                   }
                 }
               }
@@ -1037,9 +1037,9 @@
           ]
         }
       },
-      "/profiles/:id/unfollow": {
+      "/profiles/{id}/unfollow": {
         "post": {
-          "tags": ["profile"],
+          "tags": ["profiles"],
           "summary": "Unfollow a profile",
           "description": "Unfollow a profile, returns 400 if you're not following this profile",
           "operationId": "unfollowProfile",
@@ -1060,7 +1060,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/ProfileResponse"
+                    "$ref": "#/components/schemas/ProfilesResponse"
                   }
                 }
               }
@@ -1221,7 +1221,7 @@
               "example": "Brazilians best football"
             },
             "profile": {
-              "$ref": "#/components/schemas/ProfileResponse"
+              "$ref": "#/components/schemas/ProfilesResponse"
             },
             "comments": {
               "type": "array",
@@ -1288,7 +1288,7 @@
           },
           "required": ["title", "description"]
         },
-        "ProfileResponse": {
+        "ProfilesResponse": {
           "type": "object",
           "properties": {
             "_id": {
@@ -1372,7 +1372,7 @@
               "example": "Use the imagination"
             },
             "profile": {
-              "$ref": "#/components/schemas/ProfileResponse"
+              "$ref": "#/components/schemas/ProfilesResponse"
             },
             "comments": {
               "type": "array",
