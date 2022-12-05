@@ -1,6 +1,6 @@
 const express = require('express')
 const userRouter = express.Router()
-const { User } = require('../models')
+const { User, Profile } = require('../models')
 const removePassword = require('../helpers')
 
 userRouter
@@ -16,7 +16,8 @@ userRouter
      .catch((err) => next(err)))
 
   .delete((req, res, next) => Promise.resolve()
-     .then(() => User.deleteOne({ _id: req.user.id }))
+     .then(() => Profile.deleteOne({ _id: req.user.profile._id}))
+     .then(() => User.deleteOne({ _id: req.user.id }))     
      .then((data) => res.status(200).json(data))
      .catch((err) => next(err))
 )
