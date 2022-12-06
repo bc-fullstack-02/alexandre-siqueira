@@ -1,6 +1,36 @@
 version: "3.2"
 services:
 
+  minio:
+    image: bitnami/minio
+    ports: 
+      - '9000:9000'
+      - '9001:9001'
+    environment:
+      MINIO_ROOT_USER: userLizzera
+      MINIO_ROOT_PASSWORD: passwordLizzera
+      MINIO_SERVER_HOST: localhost
+      MINIO_SCHEME: http
+      MINIO_API_CORS_ALLOW_ORIGIN: '*'
+    networks:
+      - mynet
+  
+  mc: 
+    image: minio/mc
+    container_name: host
+    depends_on: 
+      - minio
+    entrypoint: >
+      /bin/sh -c "
+      /usr/bin/mc config host add --api s3v4 minio http://minio:9000/ userLizzera passwordLizzera;
+      /usr/bin/mc rm -r --force minio/first-bucket;
+      /usr/bin/mc mb -p minio/first-bucket;
+      /usr/bin/mc admin policy set public minio/first-bucket;
+      /usr/bin/mc admin trace minio -a --debug;
+      "
+    networks:
+      - mynet 
+
   mongodb:
     image: mongo:latest
     container_name: 'mongodb'
@@ -10,14 +40,14 @@ services:
       - mynet
 
   rabbitmq:
-    image: rabbitmq:3.11-management-alpine
+    image: rabbitmq:3.8-management-alpine
     container_name: 'rabbitmq'
     ports:
       - 5672:5672
       - 15672:15672
     networks:
       - mynet
-      
+
   backend:    
     restart: always
     build:
@@ -27,12 +57,16 @@ services:
     depends_on:
       - rabbitmq
       - mongodb
+      - minio
     environment:
       PORT: 4000
-      AMQP_URL: amqp://guest:guest@rabbitmq:5672
       MONGO_URL: mongodb://mongodb:27017/mydb
-      ACCESS_TOKEN_SECRET: accesstokenlizzera
-      JWT_PASS: acessq1w2e3r4password      
+      AMQP_URL: amqp://guest:guest@rabbitmq:5672
+      JWT_PASS: acessq1w2e3r4password
+      BUCKET_HOST: http://localhost:9000/
+      BUCKET_ENDPOINT: http://minio:9000/
+      BUCKET_ACCESS_KEY: userLizzera
+      BUCKET_SECRET_KEY: passwordLizzera
     ports:
         - 4000:4000
     networks:

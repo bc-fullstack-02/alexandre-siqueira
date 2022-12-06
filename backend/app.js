@@ -11,14 +11,19 @@ const { AuthUser, ErrorHandler } = require('./middlewares')
 const { Connection } = require('./models')
 
 const { PostRouter, CommentRouter, UserRouter, SecurityRouter, ProfileRouter, FeedRouter } = require('./routes');
-const pubsub = require('./pubsub');
+const pubsub = require("./lib/pubsub")
 const bodyParser = require('body-parser');
+const urlencodedMiddleware =  bodyParser.urlencoded({ extended: true })
 
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDOC))
 app.use(cors())
-app.use(express.urlencoded({ extended: true }))
-app.use(bodyParser.json())
-app.use(logger('dev'))
+
+
+app.use((req, res, next) => (/^multipart\//i.test(req.get('Content-Type'))) ? next() : urlencodedMiddleware(req, res, next))
+app.use(bodyParser.json({
+  defer: true
+}))
+app.use(logger('tiny'))
 /* app.use(express.json()) */
 /* app.use(helmet()) */ //Front in React remove comment
 

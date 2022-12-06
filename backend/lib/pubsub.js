@@ -1,5 +1,5 @@
 const Rascal = require("rascal")
-const defaultConfig = require("./config")
+const defaultConfig = require("../config")
 
 defaultConfig.vhosts["/"].connection.url = process.env.AMQP_URL || defaultConfig.vhosts["/"].connection.url
 const config = Rascal.withDefaultConfig(defaultConfig)

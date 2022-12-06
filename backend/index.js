@@ -3,7 +3,7 @@ const socketio = require("socket.io")
 const jwt = require("jsonwebtoken")
 const { User: UserModel } = require("./models")
 const server = require("http").createServer(app)
-const pubsub = require("./pubsub")
+const pubsub = require("./lib/pubsub")
 
 const JWT_PASS = process.env.JWT_PASS || 'acessq1w2e3r4password'
 

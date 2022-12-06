@@ -1,6 +1,7 @@
 const express = require('express')
 const createError = require('http-errors')
 const profileRouter = express.Router()
+const upload = require('../lib/upload')
 
 const { Post } = require('../models')
 
@@ -10,11 +11,11 @@ profileRouter.route('/')
     .then((data) => res.status(200).json(data))
     .catch(err => next(err)))
 
-  .post((req, res, next) => Promise.resolve()
+  .post(upload.concat([(req, res, next) => Promise.resolve()
     .then(() => new Post({ ...req.body, profile: req.user.profile._id }).save())
     .then((args) => req.publish('post', req.user.profile.followers, args))
     .then((data) => res.status(201).json(data))
-    .catch(err => next(err)))
+    .catch(err => next(err))]))
 
 profileRouter.route('/:id')
   .get((req, res, next) => Promise.resolve()
