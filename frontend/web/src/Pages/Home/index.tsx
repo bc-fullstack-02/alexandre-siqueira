@@ -1,11 +1,11 @@
 import logo_menu from "../../assets/logo-menu.svg"
-import { useState } from 'react'
 import * as Dialog from "@radix-ui/react-dialog"
 import Text from "../../components/Text"
 import CreatePostButton from '../../components/CreatePostButton'
 import Menu from '../../components/Menu'
 import Feed from "../../components/Feed"
 import CreatePostDialog from "../../components/CreatePostDialog"
+import { useState } from "react"
 
 function Home(){
     const [open, setOpen] = useState(false)

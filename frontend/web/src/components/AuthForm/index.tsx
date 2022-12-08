@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { User, Lock } from "phosphor-react"
+import { FaRegUser, FaLock } from 'react-icons/fa';
 import Heading from "../../components/Heading";
 import Text from "../../components/Text";
 import Button from "../../components/Button";
@@ -45,7 +45,7 @@ function AuthForm({
           <Text>Login</Text>
           <TextInput.Root>
             <TextInput.Icon>
-              <User />
+              <FaRegUser />
             </TextInput.Icon>
             <TextInput.Input  id="user" type="text" placeholder="Digite seu login" />
           </TextInput.Root>
@@ -54,7 +54,7 @@ function AuthForm({
           <Text>Senha</Text>
           <TextInput.Root>
             <TextInput.Icon>
-              <Lock />
+              <FaLock />
             </TextInput.Icon>
             <TextInput.Input  id="password" type="password" placeholder="***********" />
           </TextInput.Root>

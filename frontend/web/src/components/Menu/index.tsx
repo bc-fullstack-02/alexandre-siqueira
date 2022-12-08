@@ -1,17 +1,17 @@
-import { House, UsersThree, User } from "phosphor-react"
+import { FaHome, FaUserAlt, FaUserFriends } from 'react-icons/fa';
 import MenuItem from "../MenuItem"
 
 function Menu(){
     return(
         <ul className="pr-2">
             <MenuItem menuTitle="Pagina Inicial">
-                <House size={48} weight="fill"/>
+                <FaHome size={48} height="fill"/>
             </MenuItem>
             <MenuItem menuTitle="Perfil">
-                <User size={48} weight="fill"/>
+                <FaUserAlt size={48} height="fill"/>
             </MenuItem>
             <MenuItem menuTitle="Amigos">
-                <UsersThree size={48} weight="fill"/>
+                <FaUserFriends size={48} height="fill"/>
             </MenuItem>
         </ul>
     )

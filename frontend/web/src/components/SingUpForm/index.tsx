@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { User, Lock, Envelope, IdentificationCard } from "phosphor-react"
+import { FaRegUser, FaLock, FaRegEnvelope, FaAddressCard } from 'react-icons/fa';
 import Heading from "../../components/Heading";
 import Text from "../../components/Text";
 import Button from "../../components/Button";
@@ -47,7 +47,7 @@ function SingUpForm({
           <Text>Nome</Text>
           <TextInput.Root>
             <TextInput.Icon>
-              <IdentificationCard />
+              <FaAddressCard />
             </TextInput.Icon>
             <TextInput.Input  id="name" type="text" placeholder="Digite seu nome" />
           </TextInput.Root>
@@ -56,7 +56,7 @@ function SingUpForm({
           <Text>Login</Text>
           <TextInput.Root>
             <TextInput.Icon>
-              <User />
+              <FaRegUser />
             </TextInput.Icon>
             <TextInput.Input  id="user" type="text" placeholder="Digite seu login" />
           </TextInput.Root>
@@ -65,7 +65,7 @@ function SingUpForm({
           <Text>Senha</Text>
           <TextInput.Root>
             <TextInput.Icon>
-              <Lock />
+              <FaLock />
             </TextInput.Icon>
             <TextInput.Input  id="password" type="password" placeholder="***********" />
           </TextInput.Root>
@@ -74,9 +74,9 @@ function SingUpForm({
           <Text>E-mail</Text>
           <TextInput.Root>
             <TextInput.Icon>
-              <Envelope />
+              <FaRegEnvelope />
             </TextInput.Icon>
-            <TextInput.Input  id="email" type="text" placeholder="Digite E-mail" />
+            <TextInput.Input  id="email" type="text" placeholder="Digite seu e-mail" />
           </TextInput.Root>
         </label>
         <Button type="submit" className='mt-4'>{submitFormButtonText}</Button>
