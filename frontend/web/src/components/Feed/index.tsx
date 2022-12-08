@@ -4,19 +4,22 @@ import Text from "../Text"
 import { FaRegUserCircle, FaRocketchat, FaRegHeart } from 'react-icons/fa';
 import api from '../../services/api'
 
+
 interface Post {
         _id: string,
         title: string,
         description: string,
-        profile: {
-          _id: string,
-          name: string,
-          user: string,
-          following: [],
-          followers: []
-        },
+        profile: Profile,
         comments: [],
         likes: []
+}
+
+interface Profile{
+        _id: string,
+        name: string,
+        user: string,
+        following: [],
+        followers: []
 }
 
 function Feed(){
