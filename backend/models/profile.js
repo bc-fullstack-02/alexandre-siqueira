@@ -6,6 +6,12 @@ const profileSchema = new Schema({
     required: true,
     minLength: 2
   },
+  email: {
+    type: String,
+    unique: true,
+    required: true,
+    minLength: 2
+  },
   image: {
     type: Boolean,
     default: false
