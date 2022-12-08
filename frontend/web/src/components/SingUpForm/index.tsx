@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { User, Lock } from "phosphor-react"
+import { User, Lock, Envelope, IdentificationCard } from "phosphor-react"
 import Heading from "../../components/Heading";
 import Text from "../../components/Text";
 import Button from "../../components/Button";
@@ -7,29 +7,31 @@ import { TextInput } from "../../components/TextInput";
 import logo from '../../assets/parrot.svg';
 import { FormEvent } from 'react';
 
-interface AuthFormProps{
+interface SingUpFormProps{
   formTitle: string;
   submitFormButtonText: string;
   linkDescription: string;
-  submitFormButtonAction: (user: string, password: string) => void
+  submitFormButtonAction: (name: string, user: string, password: string, email: string) => void
   routeName: string;
 }
 
-function AuthForm({ 
+function SingUpForm({ 
   formTitle, 
   submitFormButtonText, 
   linkDescription, 
   submitFormButtonAction, 
   routeName 
-}: AuthFormProps){
+}: SingUpFormProps){
 
   function handleSubmit(event: FormEvent){
     event.preventDefault()
     const form = event.target as HTMLFormElement
 
     submitFormButtonAction(
+        form.elements.name.value,
         form.elements.user.value, 
-        form.elements.password.value
+        form.elements.password.value,
+        form.elements.email.value
       )
   }
 
@@ -41,6 +43,15 @@ function AuthForm({
         <Text className="mt-1 opacity-50">{formTitle}</Text>
       </header>
       <form onSubmit={(e) => handleSubmit(e)} className="flex flex-col gap-4 items-stretch w-full max-w-sm mt-10">
+      <label htmlFor="name" className="flex flex-col gap-2">
+          <Text>Nome</Text>
+          <TextInput.Root>
+            <TextInput.Icon>
+              <IdentificationCard />
+            </TextInput.Icon>
+            <TextInput.Input  id="name" type="text" placeholder="Digite seu nome" />
+          </TextInput.Root>
+        </label>
         <label htmlFor="user" className="flex flex-col gap-2">
           <Text>Login</Text>
           <TextInput.Root>
@@ -59,6 +70,15 @@ function AuthForm({
             <TextInput.Input  id="password" type="password" placeholder="***********" />
           </TextInput.Root>
         </label>
+        <label htmlFor="name" className="flex flex-col gap-2">
+          <Text>E-mail</Text>
+          <TextInput.Root>
+            <TextInput.Icon>
+              <Envelope />
+            </TextInput.Icon>
+            <TextInput.Input  id="email" type="text" placeholder="Digite E-mail" />
+          </TextInput.Root>
+        </label>
         <Button type="submit" className='mt-4'>{submitFormButtonText}</Button>
       </form>
       <footer className="flex flex-col items-center gap-4 mt-8">
@@ -73,4 +93,4 @@ function AuthForm({
   );
 }
 
-export default AuthForm;
+export default SingUpForm;

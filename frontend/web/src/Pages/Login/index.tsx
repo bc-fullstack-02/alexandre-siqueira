@@ -4,24 +4,27 @@ import AuthForm from "../../components/AuthForm";
 import api from "../../services/api"
 
 interface UserToken{
-    profile: string
+    profile: Object._id
     user: string
 
 }
 
 function Login() {
+  
   const navigate = useNavigate()
+
   async function handleLogin(user: string, password: string){
     try{
       const { data } = await api.post("/security/login", {
-        user,
-        password
+          user,
+          password
       })
-      console.log(JSON.stringify(data))
-      /* const decodedToken =jwt_decode(token, ...data) as UserToken      
-      localStorage.setItem("profile", decodedToken.profile)
+      
+      const { token } = data
+      const decodedToken = jwt_decode(token) as UserToken      
+      localStorage.setItem("profile", decodedToken.profile._id)
       localStorage.setItem("user", decodedToken.user)
-      localStorage.setItem("accessToken", data.accessToken) */
+      localStorage.setItem("accessToken", token)
 
       return navigate("/home")
 
@@ -35,9 +38,9 @@ function Login() {
     <AuthForm
       formTitle="Faça login e comece a usar"
       submitFormButtonText="Entrar"
-      linkDescription="Não possui conta? Crei uma conta agora!"
       submitFormButtonAction={handleLogin}
-      routeName="/singup"
+      linkDescription="Não possui conta? Crei uma conta agora!"      
+      routeName="signup"
     />
   );
 }

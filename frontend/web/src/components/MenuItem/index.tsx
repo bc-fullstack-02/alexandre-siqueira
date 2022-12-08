@@ -3,7 +3,7 @@ import{ Slot } from "@radix-ui/react-slot"
 import Text from "../Text"
 
 interface MenuItemProps{
-    menuTitle: string;
+    menuTitle: string
     children?: ReactNode
 }
 
