@@ -6,6 +6,18 @@ const profileSchema = new Schema({
     required: true,
     minLength: 2
   },
+  image: {
+    type: Boolean,
+    default: true
+  },
+  profilePicture: {
+    type: String,
+    default: "",
+  },
+  coverPicture: {
+    type: String,
+    default: "",
+  },
   user: {
     required: true,
     type: Schema.Types.ObjectId,
