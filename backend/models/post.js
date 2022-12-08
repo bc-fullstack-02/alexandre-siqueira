@@ -25,7 +25,7 @@ const postSchema = new Schema({
   }],
   image: {
     type: Boolean,
-    default: true
+    default: false
   },
   createAt: {
     type: Date,

@@ -21,7 +21,7 @@ securityRouter.route('/register')
 
 securityRouter.route('/login')
 .post((req, res, next) => Promise.resolve()
-    .then(() => User.findOne({ user: req.body.user }).populate('profile'))
+    .then(() => User.findOne({ user: req.body.user }))
     .then((user) => user ? {passHashed: bcrypt.compare(req.body.password, user.password), user} : next(createError(404)))
     .then(({ passHashed, user }) => passHashed ? jwt.sign(JSON.stringify(removePassword(user)), JWT_PASS) : next(createError(401)))
     .then((token) => token ? res.status(200).json({token}) : next(createError(401)))

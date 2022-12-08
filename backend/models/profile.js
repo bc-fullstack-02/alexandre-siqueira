@@ -8,15 +8,7 @@ const profileSchema = new Schema({
   },
   image: {
     type: Boolean,
-    default: true
-  },
-  profilePicture: {
-    type: String,
-    default: "",
-  },
-  coverPicture: {
-    type: String,
-    default: "",
+    default: false
   },
   user: {
     required: true,
