@@ -4,7 +4,7 @@ import AuthForm from "../../components/AuthForm";
 import api from "../../services/api"
 
 interface UserToken{
-    profile: Object._id
+    profile: string
     user: string
 
 }
@@ -22,7 +22,7 @@ function Login() {
       
       const { token } = data
       const decodedToken = jwt_decode(token) as UserToken      
-      localStorage.setItem("profile", decodedToken.profile._id)
+      localStorage.setItem("profile", decodedToken.profile)
       localStorage.setItem("user", decodedToken.user)
       localStorage.setItem("accessToken", token)
 

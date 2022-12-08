@@ -70,7 +70,7 @@ function Feed(){
                 <Text size="lg" className="font-extrabold ml-5">Página Inicial</Text>
                 <div className="flex flex-row items-center ml-5 my-4">
                     <FaRegUserCircle size={48} height="light" className="text-slate-100" />
-                    <Text className="font-extrabold ml-2">Fulano</Text>
+                    <Text className="font-extrabold ml-2">{user}</Text>
                 </div>
             </Heading>
             <section>
