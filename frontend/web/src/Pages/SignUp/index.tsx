@@ -1,17 +1,12 @@
 import { useNavigate } from "react-router-dom"
-import SingUpForm from "../../components/SingUpForm";
+import AuthForm, { Auth } from "../../components/AuthForm";
 import api from "../../services/api";
 
 function SignUp(){
     const navigate = useNavigate()
-    async function handleRegister(name: string, user: string, password: string, email: string){        
+    async function handleRegister(auth: Auth){        
         try {
-                await api.post("/security/register", {
-                    name,
-                    user,
-                    password,
-                    email
-            })
+                await api.post("/security/register", auth)
 
             navigate("/") 
 
@@ -21,12 +16,13 @@ function SignUp(){
         }
     }
     return (
-        <SingUpForm 
+        <AuthForm 
             formTitle="Faça o cadastro e comece a usar"
             submitFormButtonText="Cadastar"
             submitFormButtonAction={handleRegister}
             linkDescription="Já possui conta? Entre agora!"            
             routeName="/"
+            showOptional
         />
     )
 }
