@@ -12,21 +12,6 @@ const userSchema = new Schema({
     required: true,
     minLength: 2
   },
-  fullName: {
-    type: String,
-    required: true,
-    minLength: 2
-  },
-  email: {
-    type: String,
-    unique: true,
-    required: true,
-    minLength: 2
-  },
-  image: {
-    type: String,
-    minLength: 2
-  },
   profile: {
     type: Schema.Types.ObjectId,
     ref: 'Profile'

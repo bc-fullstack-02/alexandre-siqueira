@@ -1,6 +1,21 @@
 const { Schema, model } = require('mongoose')
 
 const profileSchema = new Schema({
+  fullName: {
+    type: String,
+    required: true,
+    minLength: 2
+  },
+  email: {
+    type: String,
+    unique: true,
+    required: true,
+    minLength: 2
+  },
+  image: {
+    type: String,
+    minLength: 2
+  },
   user: {
     required: true,
     type: Schema.Types.ObjectId,
