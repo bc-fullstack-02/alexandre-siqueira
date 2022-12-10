@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose')
 
 const profileSchema = new Schema({
-  fullName: {
+  name: {
     type: String,
     required: true,
     minLength: 2
