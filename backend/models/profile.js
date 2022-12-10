@@ -8,8 +8,6 @@ const profileSchema = new Schema({
   },
   email: {
     type: String,
-    unique: true,
-    required: true,
     minLength: 2
   },
   image: {
