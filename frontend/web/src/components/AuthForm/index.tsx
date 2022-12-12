@@ -64,13 +64,13 @@ function AuthForm({
   }
 
   return (
-    <div className="text-cyan-50 flex flex-col items-center mt-16">
+    <div className="text-cyan-50 flex flex-col items-center mt-10">
       <header className="flex flex-col items-center">
       <img src={logo} alt="Logo"/>
         <Heading size="lg" className="mt-2">Sysmap Parrot</Heading>
         <Text className="mt-1 opacity-50">{formTitle}</Text>
       </header>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4 items-stretch w-full max-w-sm mt-10">  
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4 items-stretch w-full max-w-sm mt-5">  
         <label htmlFor="user" className="flex flex-col gap-2">
           <Text>Login</Text>
           <TextInput.Root>
@@ -115,7 +115,7 @@ function AuthForm({
                 <TextInput.Icon>
                   <FaRegUserCircle />
                 </TextInput.Icon>
-                <TextInput.Input id="image" type="text" placeholder="Digite seu e-mail" />
+                <TextInput.Input id="image" type="text" placeholder="Carregue sua foto de perfil..." />
               </TextInput.Root>
             </label>
 

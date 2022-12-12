@@ -8,7 +8,7 @@ function Menu(){
                 <FaHome size={48} height="fill"/>
             </MenuItem>
             <MenuItem menuTitle="Perfil">
-                <FaUserAlt size={48} height="fill"/>
+                <FaUserAlt size={44} height="fill"/>
             </MenuItem>
             <MenuItem menuTitle="Amigos">
                 <FaUserFriends size={48} height="fill"/>

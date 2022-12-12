@@ -34,7 +34,7 @@ function CreatePostDialog({ closeDialog }: CreatePostDialogProps){
     return(
         <Dialog.Portal>
             <Dialog.Overlay className='bg-black/60 inset-0 fixed' />
-            <Dialog.Content className='fixed bg-[#2a2634] py-8 px-10 text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg w[480px] shadow-lg shadow-black/25'>
+            <Dialog.Content className='fixed bg-[#2a2634] py-8 px-10 text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg w[600px] h[600px] shadow-lg shadow-black/25'>
                 <Dialog.DialogTitle className='text-2xl font-black'>Novo Post</Dialog.DialogTitle>
                     <form className='flex flex-col gap-2 mt-8' onSubmit={handleSubmit}>
                     <div className='flex flex-col gap-2'>
@@ -51,7 +51,7 @@ function CreatePostDialog({ closeDialog }: CreatePostDialogProps){
                             <Dialog.Close type='button' className='bg-zinc-500 px-5 h-12 rounded-md font-semibold hover:bg-zinc-600'>
                                 Fechar
                             </Dialog.Close>
-                            <Button type='submit' className='flex-none w-48'>Postar</Button>
+                            <Button type='submit' className='flex-none h-12 w-48'>Postar</Button>
                         </footer>
                     </form>
             </Dialog.Content>

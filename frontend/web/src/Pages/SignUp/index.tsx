@@ -8,7 +8,7 @@ function SignUp(){
         try {
                 await api.post("/security/register", auth)
 
-            navigate("/") 
+                navigate("/") 
 
         }catch (err){
             console.log(err)

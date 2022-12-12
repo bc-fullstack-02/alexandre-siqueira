@@ -27,7 +27,7 @@ function Login() {
 
     }catch(err){
       console.error(err)      
-      alert("Ocorreu um erro no login")
+      alert("Usuário ou Senha: Inválidos!")
     }
 
   }
