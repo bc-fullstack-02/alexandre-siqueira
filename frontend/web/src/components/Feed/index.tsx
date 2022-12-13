@@ -3,6 +3,7 @@ import Heading from "../Heading"
 import Text from "../Text"
 import { FaRegUserCircle, FaRocketchat, FaRegHeart } from 'react-icons/fa';
 import api from '../../services/api'
+import { getAuthHeader } from '../../services/auth';
 
 
 interface Post {
@@ -25,25 +26,14 @@ interface Post {
 } */
 
 function Feed(){
-
-    const token = localStorage.getItem("accessToken")
+    const authHeader = getAuthHeader()
+    const user = localStorage.getItem("user")
     const [ posts, setPosts] = useState<Post[]>([])    
     const profile = localStorage.getItem("profile")
-    const user = localStorage.getItem("user")
-    const authHeader = {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-        
-    }
 
     useEffect(()=>{
        async function getPosts(){
-        const response = await api.get("/feed", {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
+        const response = await api.get("/feed", authHeader)
         setPosts(response.data)
        }
        getPosts()
@@ -70,8 +60,8 @@ function Feed(){
         }
         
     }
-    return(
-        <div>
+    return( 
+        <div className="basis-5/6 overflow-y-auto scroll-smooth">
             <Heading className="border-b border-slate-400 mt-4">
                 <Text size="lg" className="font-extrabold ml-5">Página Inicial</Text>
                 <div className="flex flex-row items-center ml-5 my-4">
