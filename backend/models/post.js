@@ -27,6 +27,10 @@ const postSchema = new Schema({
     type: Boolean,
     default: false
   },
+  imageUrl: {
+    type: String,
+    minLength: 2
+  },
   createAt: {
     type: Date,
     default: Date.now

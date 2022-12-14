@@ -11,6 +11,10 @@ const profileSchema = new Schema({
     minLength: 2
   },
   image: {
+    type: Boolean,
+    default: false
+  },
+  imageUrl: {
     type: String,
     minLength: 2
   },
