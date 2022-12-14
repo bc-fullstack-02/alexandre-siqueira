@@ -47,6 +47,11 @@ services:
       - 15672:15672
     networks:
       - mynet
+    healthcheck:
+      test: [ "CMD", "rabbitmq-diagnostics", "-q", "ping" ]
+      interval: 5s
+      timeout: 10s
+      retries: 5
 
   backend:    
     restart: always
@@ -55,9 +60,12 @@ services:
     volumes:
       - .:/src
     depends_on:
-      - rabbitmq
-      - mongodb
-      - minio
+      mongodb:
+        condition: service_started
+      minio:
+        condition: service_started
+      rabbitmq:
+        condition: service_healthy
     environment:
       PORT: 4000
       MONGO_URL: mongodb://mongodb:27017/mydb
