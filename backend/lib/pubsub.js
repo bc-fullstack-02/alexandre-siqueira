@@ -30,7 +30,7 @@ module.exports = {
           if (err) {  
             if (err.code === "ECONNREFUSED") {
               console.error(err)
-              process.exit(1)
+              /* process.exit(1) */
             } else {
               reject(err)
             }
