@@ -11,3 +11,5 @@ function Friends(){
 
 }
 export default Friends
+
+// teste
