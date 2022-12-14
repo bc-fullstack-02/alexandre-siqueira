@@ -1,29 +1,37 @@
 import { useState, useEffect } from "react"
-import api from "../../services/api"
-import Text from "../Text"
 import { FaRegUserCircle } from "react-icons/fa"
-import Heading from "../Heading"
-import Button from "../Button"
 import { getAuthHeader } from "../../services/auth"
+import api from "../../services/api"
+import Profile from "../Profile"
+import Heading from "../Heading"
+import Text from "../Text"
+import Button from "../Button"
 
 interface Profile{
     _id: string,
-    name: string
-    followers: string[]
+    name: string,
+    followers: string[],
+    followButtonDisabled: boolean
 }
 
 function Profiles(){
     const authHeader = getAuthHeader()
     const user = localStorage.getItem("user")
-    const profileId = localStorage.getItem("profile")
+    const profileId = localStorage.getItem("profile") as string
 
     const [profiles, setProfiles] = useState<Profile[]>([])
 
     useEffect(() => {
-        const getProfiles = async () =>{
+        const getProfiles = async () => {
             try {
                 const response = await api.get("/profiles", authHeader)
-                setProfiles(response.data)
+                const profiles = response.data.map((profile: Profile) => {
+                    return { 
+                        ...profile,
+                        followButtonDisabled: profile.followers.includes(profileId)
+                    }
+                })
+                setProfiles(profiles)
             } catch (err) {
                 console.log(err)
             }
@@ -34,6 +42,7 @@ function Profiles(){
     async function handleFollow(profileId: string){
         try {
             await api.post(`/profiles/${profileId}/follow`, null, authHeader)
+            changeButtonStatus(profileId, true)
         } catch (err) {
             console.log(err)
         }
@@ -42,9 +51,22 @@ function Profiles(){
     async function handleUnfollow(profileId: string){
         try {
             await api.post(`/profiles/${profileId}/unfollow`, null, authHeader)
+            changeButtonStatus(profileId, false)
         } catch (err) {
             console.log(err)
         }
+    }
+
+    function changeButtonStatus(profileId: string, buttonDisabled: boolean){
+        setProfiles((profiles) => {
+            const newProfiles = profiles.map((profile) => {
+                if(profile._id === profileId){
+                    profile.followButtonDisabled = buttonDisabled
+                }
+                return profile
+            })
+            return [...newProfiles]
+        })
     }
 
     return (
@@ -64,19 +86,22 @@ function Profiles(){
                         <Text className="font-extrabold ml-2">{profile.name}</Text>
                     </div> 
                     <footer className='mt-4 flex justify-start gap-4 mb-4'>
+                        <>
                             <Button 
                                 type='submit' 
                                 className='flex-none h-12 w-48' 
                                 onClick={() => handleFollow(profile._id)}
-                                disabled={profile.followers.includes(profileId)}>
+                                disabled={profile.followButtonDisabled}>
                                 Seguir
                             </Button>
                             <button 
                                 type='button' 
                                 className='bg-zinc-500 px-5 h-12 rounded-md font-semibold hover:bg-zinc-600 focus:ring-2 ring-white' 
-                                onClick={() => handleUnfollow(profile._id)}>
+                                onClick={() => handleUnfollow(profile._id)}
+                                disabled={!profile.followButtonDisabled}>
                                 Deixar de seguir
                             </button>
+                        </>
                     </footer>
                 </li>    
                 ))}
