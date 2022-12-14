@@ -32,8 +32,10 @@
 1) create directory for project: mkdir app
 2) move for diretory created: cd app
 3) git clone https://github.com/bc-fullstack-02/alexandre-siqueira.git or git@github.com:bc-fullstack-02/alexandre-siqueira.git
-4) run command: docker-compose up
-5) access browser url: http://localhost:4000/api-docs/
+4) move for directory backend: cd backend
+5) run command: npm install
+6) run command: docker-compose up
+7) access browser url: http://localhost:4000/api-docs/
 
 ## Addictional implementations:
 1) add route Unlike in Posts -> /v1/posts/:id/unlike
