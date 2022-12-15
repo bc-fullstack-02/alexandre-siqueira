@@ -43,4 +43,5 @@
 3) When deleting User, I added profile deletion
 4) add method put in route profiles, for updates on frontend
 5) add field image and imageUrl in profile model
+6) modified order recent post first in Feed response
 
