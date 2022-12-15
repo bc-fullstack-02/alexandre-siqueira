@@ -10,20 +10,16 @@ interface Post {
         _id: string,
         title: string,
         description: string,
-        profile: {
-            name: string
-        },
-        comments: [],
-        likes: []
+        profile: Profile
 }
 
-/* interface Profile{
+ interface Profile{
         _id: string,
         name: string,
         user: string,
         following: [],
         followers: []
-} */
+}
 
 function Feed(){
     const authHeader = getAuthHeader()

@@ -19,9 +19,9 @@ interface AuthFormProps{
 interface AuthFormElements extends HTMLFormControlsCollection{  
   user: HTMLInputElement;
   password: HTMLInputElement;
-  fullName?: HTMLInputElement;
+  name?: HTMLInputElement;
   email?: HTMLInputElement;
-  image?: HTMLInputElement;
+  imageUrl?: HTMLInputElement;
   
 }
 
@@ -32,10 +32,10 @@ interface AuthFormElement extends HTMLFormElement{
 export interface Auth{
   user: string;
   password: string;
-  fullName?: string;
+  name?: string;
   email?: string;
-  image?: string;
-
+  image?: boolean;
+  imageUrl?: string;
 }
 
 function AuthForm({ 
@@ -54,9 +54,9 @@ function AuthForm({
       const auth = {
         user: form.elements.user.value,
         password: form.elements.password.value,
-        fullName: form.elements.fullName?.value,
+        name: form.elements.name?.value,
         email: form.elements.email?.value,
-        image: form.elements.image?.value
+        imageUrl: form.elements.imageUrl?.value
 
       }
 
@@ -97,7 +97,7 @@ function AuthForm({
                 <TextInput.Icon>
                   <FaAddressCard />
                 </TextInput.Icon>
-                <TextInput.Input id="fullName" type="text" placeholder="Digite seu nome" />
+                <TextInput.Input id="name" type="text" placeholder="Digite seu nome" />
               </TextInput.Root>
             </label>
             <label htmlFor="email" className="flex flex-col gap-2">
@@ -109,13 +109,13 @@ function AuthForm({
                 <TextInput.Input id="email" type="text" placeholder="Digite seu e-mail" />
               </TextInput.Root>
             </label>
-            <label htmlFor="image" className="flex flex-col gap-2">
+            <label htmlFor="imageUrl" className="flex flex-col gap-2">
               <Text>Foto de Perfil</Text>
               <TextInput.Root>
                 <TextInput.Icon>
                   <FaRegUserCircle />
                 </TextInput.Icon>
-                <TextInput.Input id="image" type="text" placeholder="Carregue sua foto de perfil..." />
+                <TextInput.Input id="imageUrl" type="text" placeholder="Carregue sua foto de perfil..." />
               </TextInput.Root>
             </label>
 

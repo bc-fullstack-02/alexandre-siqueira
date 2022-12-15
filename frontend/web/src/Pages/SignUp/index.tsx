@@ -7,7 +7,6 @@ function SignUp(){
     async function handleRegister(auth: Auth){        
         try {
                 await api.post("/security/register", auth)
-
                 navigate("/") 
 
         }catch (err){
