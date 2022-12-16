@@ -25,8 +25,8 @@ services:
       /usr/bin/mc config host add --api s3v4 minio http://minio:9000/ userLizzera passwordLizzera;
       /usr/bin/mc rm -r --force minio/first-bucket;
       /usr/bin/mc mb -p minio/first-bucket;
-      /usr/bin/mc admin policy set public minio/first-bucket;
-      /usr/bin/mc admin trace minio -a --debug;
+      /usr/bin/mc anonymous policy set public minio/first-bucket;
+      /usr/bin/mc anonymous trace minio -a --debug;
       "
     networks:
       - mynet 

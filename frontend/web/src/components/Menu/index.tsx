@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
 import logo_menu from "../../assets/logo-menu.svg"
 import * as Dialog from "@radix-ui/react-dialog"
 import { FaHome, FaUserAlt, FaUserFriends } from 'react-icons/fa';
@@ -7,13 +6,19 @@ import MenuItem from "../MenuItem"
 import Text from "../../components/Text"
 import CreatePostButton from '../../components/CreatePostButton'
 import CreatePostDialog from "../../components/CreatePostDialog"
+import { Post } from "../../Model/Post";
 
-function Menu() {
+interface MenuProps{
+    newPostCreated: (post: Post) => void
+}
+
+function Menu(props: MenuProps) {
 
     const  [open, setOpen] = useState(false)
 
-    function closeDialog() {
+    function postCreated(post: Post) {
         setOpen(false)
+        props.newPostCreated(post)
     }
 
     return(
@@ -36,7 +41,7 @@ function Menu() {
       <div className="flex flex-col items-center">
         <Dialog.Root open={open} onOpenChange={setOpen}>
                 <CreatePostButton />
-                <CreatePostDialog closeDialog={closeDialog} />
+                <CreatePostDialog postCreated={postCreated} />
             </Dialog.Root>
       </div>
     </div>

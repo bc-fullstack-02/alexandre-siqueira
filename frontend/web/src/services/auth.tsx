@@ -6,7 +6,6 @@ function getAuthHeader(){
             Authorization: `Bearer ${token}`
         }        
     }
-    console.log(authHeader)
     return authHeader
 }
 export {getAuthHeader}
