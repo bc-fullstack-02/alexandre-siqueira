@@ -4,12 +4,13 @@ const createError = require('http-errors')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const removePassword = require('../helpers')
+const upload = require('../lib/upload')
 
 const { User, Profile } = require('../models')
 const JWT_PASS = process.env.JWT_PASS || 'acessq1w2e3r4password'
 
 securityRouter.route('/register')
-.post((req, res, next) => Promise.resolve()
+.post(upload.concat([(req, res, next) => Promise.resolve()
     .then(() => bcrypt.hash(req.body.password, 10))
     .then((passHashed) => new User({ ...req.body, password: passHashed }).save())
     .then((user) => new Profile({ 
@@ -21,8 +22,7 @@ securityRouter.route('/register')
         .then((profile) => User.findByIdAndUpdate(user._id, { profile })))
     .then((user) => removePassword(user)) // function to remove password from helpers.js
     .then((user) => res.status(201).json(user))
-    .catch((err) => next(err))
-)
+    .catch((err) => next(err))]))
 
 securityRouter.route('/login')
 .post((req, res, next) => Promise.resolve()

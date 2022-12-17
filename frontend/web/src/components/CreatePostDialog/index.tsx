@@ -20,11 +20,6 @@ function CreatePostDialog({ postCreated }: CreatePostDialogProps){
         event.preventDefault()
         const form = event.currentTarget
 
-        /* const newPost = {
-            title: form.elements.title.value, 
-            description: form.elements.description.value
-        } */
-
         const data = new FormData()
         data.append("title", form.elements.title.value)
         data.append("description", form.elements.description.value)
@@ -44,7 +39,6 @@ function CreatePostDialog({ postCreated }: CreatePostDialogProps){
             console.log(err)
             alert("Erro ao criar post")
         }
-        console.log(form.elements.title.value, form.elements.description.value)
     }
     return(
         <Dialog.Portal>

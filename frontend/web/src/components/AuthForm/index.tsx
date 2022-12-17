@@ -5,7 +5,9 @@ import Text from "../../components/Text";
 import Button from "../../components/Button";
 import { TextInput } from "../../components/TextInput";
 import logo from '../../assets/parrot.svg';
-import { FormEvent } from 'react';
+import { FormEvent, useState } from 'react';
+import Dropzone from '../Dropzone';
+import api from '../../services/api';
 
 interface AuthFormProps{
   formTitle: string;
@@ -47,11 +49,39 @@ function AuthForm({
   showOptional
 }: AuthFormProps){
 
-  function handleSubmit(event: FormEvent<AuthFormElement>){
+  const [selectedFile, setSelectedFile] = useState<File>()
+  const token = localStorage.getItem("accessToken")
+
+  async function handleSubmit(event: FormEvent<AuthFormElement>){
     event.preventDefault()
     const form = event.currentTarget
 
-      const auth = {
+    if(selectedFile){
+      const data = new FormData()
+          data.append("user", form.elements.user.value)
+          data.append("password", form.elements.password.value)
+          data.append("name", form.elements.name.value)
+          data.append("imageUrl", form.elements.imageUrl.value)
+          data.append("file", selectedFile)
+/*         if(selectedFile){
+            data.append("file", selectedFile)
+         } */      
+
+      try{
+        const response = await api.post("/security/register", data, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          /* postCreated(response.data) */
+      }catch(err){
+          console.log(err)
+          alert("Erro ao criar post")
+      }
+
+    }
+    
+    const auth = {
         user: form.elements.user.value,
         password: form.elements.password.value,
         name: form.elements.name?.value,
@@ -91,7 +121,7 @@ function AuthForm({
         </label>
         {showOptional && (
           <>
-            <label htmlFor="fullName" className="flex flex-col gap-2">
+            <label htmlFor="name" className="flex flex-col gap-2">
               <Text>Nome</Text>
               <TextInput.Root>
                 <TextInput.Icon>
@@ -111,11 +141,8 @@ function AuthForm({
             </label>
             <label htmlFor="imageUrl" className="flex flex-col gap-2">
               <Text>Foto de Perfil</Text>
-              <TextInput.Root>
-                <TextInput.Icon>
-                  <FaRegUserCircle />
-                </TextInput.Icon>
-                <TextInput.Input id="imageUrl" type="text" placeholder="Carregue sua foto de perfil..." />
+              <TextInput.Root>          
+                <Dropzone onFileUploaded={setSelectedFile}/>
               </TextInput.Root>
             </label>
 
