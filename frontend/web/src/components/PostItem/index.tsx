@@ -40,7 +40,7 @@ function PostItem({ post}: PostItemProps){
                         </div>
                         <div className="ml-16 flex flex-col gap-2">
                             <Heading size="sm">{post.title}</Heading>
-                            {(post.image) ? <img src={post.description} alt="Image" className="max-w-lg rounded-lg"/> : ( 
+                            {(post.image) ? <img src={post.imageUrl} alt="Image" className="max-w-lg rounded-lg"/> : ( 
                                 <Text asChild >
                                      <p>{post.description}</p>
                                 </Text>)
