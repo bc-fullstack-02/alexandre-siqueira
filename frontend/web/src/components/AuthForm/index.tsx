@@ -73,7 +73,7 @@ function AuthForm({
               Authorization: `Bearer ${token}`,
             },
           })
-          /* postCreated(response.data) */
+        console.log(response.data)
       }catch(err){
           console.log(err)
           alert("Erro ao criar post")
@@ -120,7 +120,6 @@ function AuthForm({
           </TextInput.Root>
         </label>
         {showOptional && (
-          <>
             <label htmlFor="name" className="flex flex-col gap-2">
               <Text>Nome</Text>
               <TextInput.Root>
@@ -130,6 +129,8 @@ function AuthForm({
                 <TextInput.Input id="name" type="text" placeholder="Digite seu nome" />
               </TextInput.Root>
             </label>
+          )}
+          {showOptional && (
             <label htmlFor="email" className="flex flex-col gap-2">
               <Text>E-mail</Text>
               <TextInput.Root>
@@ -139,14 +140,14 @@ function AuthForm({
                 <TextInput.Input id="email" type="text" placeholder="Digite seu e-mail" />
               </TextInput.Root>
             </label>
+          )}
+          {showOptional && (
             <label htmlFor="imageUrl" className="flex flex-col gap-2">
               <Text>Foto de Perfil</Text>
               <TextInput.Root>          
                 <Dropzone onFileUploaded={setSelectedFile}/>
               </TextInput.Root>
-            </label>
-
-          </>           
+            </label>         
         )}
         
         <Button type="submit" className='mt-4'>{submitFormButtonText}</Button>

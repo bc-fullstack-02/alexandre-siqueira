@@ -6,10 +6,12 @@ import Profile from "../Profile"
 import Heading from "../Heading"
 import Text from "../Text"
 import Button from "../Button"
+import {Avatar} from '@mui/material';
 
 interface Profile{
     _id: string,
     name: string,
+    imageUrl: string,
     followers: string[],
     followButtonDisabled: boolean
 }
@@ -73,7 +75,7 @@ function Profiles(){
         <div className="basis-5/6 overflow-y-auto scroll-smooth">
             <Heading className="border-b border-slate-400 mt-4">
                 <Text size="lg" className="font-extrabold ml-5">Amigos</Text>
-                <div className="flex flex-row items-center ml-5 my-4">
+                <div className="flex flex-row items-center ml-5 my-4">                
                     <FaRegUserCircle size={48} height="light" className="text-slate-100" />
                     <Text className="font-extrabold ml-2">{user}</Text>
                 </div>
@@ -82,8 +84,9 @@ function Profiles(){
                 {profiles.map(profile => (
                 <li key={profile._id} className="border-b border-slate-400 mt-4 pl-5">
                     <div className="flex flex-row items-center">
+                        <Avatar  alt="Remy Sharp" src="http://localhost:9000/first-bucket/639495170e420d0c9c8f18b2/woman-5698389__340.jpg" sx={{ width: 56, height: 56 }}/>
                         <FaRegUserCircle size={48} height="light" className="text-slate-100" />
-                        <Text className="font-extrabold ml-2">{profile.name}</Text>
+                        <Text className="font-extrabold ml-2">{profile.imageUrl}</Text>
                     </div> 
                     <footer className='mt-4 flex justify-start gap-4 mb-4'>
                         <>
