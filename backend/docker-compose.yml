@@ -17,7 +17,8 @@ services:
   
   mc: 
     image: minio/mc
-    container_name: host
+    container_name: mc
+    network_mode: host
     depends_on: 
       - minio
     entrypoint: >
