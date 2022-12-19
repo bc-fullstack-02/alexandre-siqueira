@@ -2,6 +2,8 @@ import { FaRegHeart, FaRegUserCircle, FaRocketchat } from "react-icons/fa"
 import Heading from "../Heading"
 import Text from "../Text"
 import { Post } from '../../Model/Post';
+import { Avatar } from "@mui/material";
+import api from "../../services/api";
 
 interface PostItemProps{
     post: Post
@@ -35,7 +37,12 @@ function PostItem({ post}: PostItemProps){
     return(
         <div className="border-b border-slate-400 mt-4" key={post._id}>
                         <div className="flex flex-row items-center ml-5 my-4">
-                            <FaRegUserCircle size={48} height="light" className="text-slate-100" />
+                        {post.profile && post.profile ? <Avatar 
+                            className="border-solid border-2 border-sky-500" 
+                            alt={post.profile.name} 
+                            src={post.profile.imageUrl} 
+                            sx={{ width: 56, height: 56 }}/>
+                            : <FaRegUserCircle size={48} height="light" className="text-slate-100"/> }
                             <Text className="font-extrabold ml-2">{post.profile.name}</Text>
                         </div>
                         <div className="ml-16 flex flex-col gap-2">
