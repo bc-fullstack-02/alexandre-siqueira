@@ -6,6 +6,7 @@ import ProfilePage from './Pages/ProfilePage'
 import Friends from './Pages/Friends'
 import "./index.css"
 import PostDetail from './Pages/PostDetail'
+import ProfileEdit from './Pages/ProfileEdit'
 
 
 const router = createBrowserRouter([
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
     {
         path: "/friends",
         element: <Friends />
+    },
+    {
+        path: "/editprofile",
+        element: <ProfileEdit />
     },
     {
         path: "/posts/:postId",

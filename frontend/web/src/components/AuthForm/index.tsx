@@ -73,7 +73,7 @@ function AuthForm({
               Authorization: `Bearer ${token}`,
             },
           })
-        console.log(response.data)
+          
       }catch(err){
           console.log(err)
           alert("Erro ao criar post")
