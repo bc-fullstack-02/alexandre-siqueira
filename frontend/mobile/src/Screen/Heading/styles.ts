@@ -10,12 +10,12 @@ export const styles = StyleSheet.create({
         color: THEME.COLORS.TEXT,
         fontSize: THEME.FONT_SIZE.LG,
         textAlign: "center",
-        /* fontFamily: THEME.FONT_FAMILY.BLACK */
+        fontFamily: THEME.FONT_FAMILY.BLACK
     },
     subtitle: {
         color: THEME.COLORS.CAPTION_400,
         fontSize: THEME.FONT_SIZE.MD,
         textAlign: "center",
-        /* fontFamily: THEME.FONT_FAMILY.REGULAR */
+        fontFamily: THEME.FONT_FAMILY.REGULAR
     }
 })
