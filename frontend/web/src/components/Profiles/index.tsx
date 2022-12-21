@@ -76,7 +76,11 @@ function Profiles(){
             <Heading className="border-b border-slate-400 mt-4">
                 <Text size="lg" className="font-extrabold ml-5">Amigos</Text>
                 <div className="flex flex-row items-center ml-5 my-4">                
-                    <FaRegUserCircle size={48} height="light" className="text-slate-100" />
+                    <FaRegUserCircle
+                        size={48}
+                        height="light"
+                        className="text-slate-100"
+                    />
                     <Text className="font-extrabold ml-2">{user}</Text>
                 </div>
             </Heading>
@@ -84,7 +88,7 @@ function Profiles(){
                 {profiles.map(profile => (
                 <li key={profile._id} className="border-b border-slate-400 mt-4 pl-5">
                     <div className="flex flex-row items-center">
-                        {profile.followers ? <Avatar 
+                        {profile.imageUrl ? <Avatar 
                             className="border-solid border-2 border-sky-500" 
                             alt={profile.name} 
                             src={profile.imageUrl} 
