@@ -13,11 +13,14 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "@expo-google-fonts/inter": "^0.2.2",
     "@expo/vector-icons": "^13.0.0",
+    "@expo/webpack-config": "^0.17.2",
     "@react-navigation/bottom-tabs": "^6.0.5",
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/native-stack": "^6.1.0",
     "expo": "~47.0.8",
+    "expo-app-loading": "~2.1.1",
     "expo-asset": "~8.6.2",
     "expo-constants": "~14.0.2",
     "expo-font": "~11.0.1",
