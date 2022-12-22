@@ -1,7 +1,7 @@
 import { useState } from "react"
 import logo_menu from "../../assets/logo-menu.svg"
 import * as Dialog from "@radix-ui/react-dialog"
-import { FaHome, FaUserAlt, FaUserFriends } from 'react-icons/fa';
+import { HouseLine, User, UsersThree} from "phosphor-react"
 import MenuItem from "../MenuItem"
 import Text from "../../components/Text"
 import CreatePostButton from '../../components/CreatePostButton'
@@ -29,13 +29,13 @@ function Menu(props: MenuProps) {
         </div>
         <ul className="pr-2">
             <MenuItem menuTitle="Pagina Inicial" route="/home">
-                <FaHome size={48} height="fill"/>
+                <HouseLine size={48} weight="fill"/>
             </MenuItem>
             <MenuItem menuTitle="Perfil" route="/profile">
-                <FaUserAlt size={44} height="fill"/>
+                <User size={44} weight="fill"/>
             </MenuItem>
             <MenuItem menuTitle="Amigos" route="/friends">
-                <FaUserFriends size={48} height="fill"/>
+                <UsersThree size={48} weight="fill"/>
             </MenuItem>
         </ul>
       <div className="flex flex-col items-center">

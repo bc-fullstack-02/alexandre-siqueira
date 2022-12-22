@@ -1,12 +1,11 @@
 import { useNavigate } from "react-router-dom"
 import Heading from "../Heading"
 import Text from "../Text"
-import { FaRegUserCircle} from 'react-icons/fa';
+import { UserCircle } from "phosphor-react"
 import Button from "../Button";
 import { useEffect, useState } from "react";
 import { getAuthHeader } from "../../services/auth";
 import api from "../../services/api";
-import { Avatar } from "@mui/material";
 
 function Profile(){
     const [profile, setProfiles] = useState<Profile[]>([]);
@@ -38,14 +37,13 @@ function Profile(){
             <Text size="lg" className="font-extrabold ml-5">Perfil</Text>
             <div className="flex flex-row items-center ml-5 my-4">
                 {profile.image ? (
-                <Avatar
+                <img
                     className="border-solid border-2 border-sky-500"
-                    alt={profile.name}
                     src={profile.imageUrl}
-                    sx={{ width: 56, height: 56 }}
-                    />
+                    style={{ width: '5%', borderRadius: '50px' }}
+                />
                 ) : (
-                    <FaRegUserCircle
+                    <UserCircle
                     size={48}
                     height="light"
                     className="text-slate-100"

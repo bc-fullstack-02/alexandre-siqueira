@@ -1,10 +1,8 @@
-import { FaRegHeart, FaRegUserCircle, FaRocketchat } from "react-icons/fa"
-import { Avatar } from "@mui/material";
+import { UserCircle, Chat, Heart } from "phosphor-react"
 import { Link } from "react-router-dom"
 import Heading from "../Heading"
 import Text from "../Text"
 import { Post } from '../../Model/Post'
-import { red } from "@mui/material/colors";
 
 interface PostItemProps {
     post: Post;
@@ -22,7 +20,7 @@ function PostItem({ post, handleLike }: PostItemProps) {
               style={{ width: '4%', borderRadius: '50px' }}
             />
           ) : (
-            <FaRegUserCircle
+            <UserCircle
               size={48}
               height="light"
               className="text-slate-100"
@@ -47,13 +45,13 @@ function PostItem({ post, handleLike }: PostItemProps) {
         </div>
         <div className="flex items-center ml-16 my-4 space-x-2">
             <Link to={`/posts/${post._id}`}>
-            <FaRocketchat size={24} className="text-slate-50" /></Link>
+            <Chat size={24} className="text-slate-50" /></Link>
             <Text size="sm">{post.comments.length}</Text>
             <div className="hover:bg-sky-400 rounded-full p-1" onClick={() => handleLike(post._id)}>
                 {post.likes.includes(profile) ? (
-                    <FaRegHeart size={24} color='red'/>
+                    <Heart size={24} className="text-red-500" weight="fill" />
                 ) : (
-                    <FaRegHeart size={24} className="text-slate-50" />
+                    <Heart size={24} className="text-slate-50" />
                 )}
 
             </div>

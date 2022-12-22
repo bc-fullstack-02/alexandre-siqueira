@@ -1,6 +1,6 @@
 import Heading from "../Heading";
 import Text from "../Text";
-import { FaRegUserCircle } from "react-icons/fa";
+import { UserCircle } from "phosphor-react"
 import { Post } from "../../Model/Post";
 import PostItem from "../PostItem";
 import { useEffect, useState } from "react";
@@ -45,7 +45,7 @@ function Feed({ posts, handleLike }: FeedProps) {
               src={profile.imageUrl}
               style={{ width: '4%', borderRadius: '50px' }}
             />
-          ) : (<FaRegUserCircle size={48} height="light" className="text-slate-100"/>)}
+          ) : (<UserCircle size={48} weight='light' className="text-slate-100"/>)}
           <Text className="font-extrabold ml-2">{user}</Text>
         </div>
       </Heading>

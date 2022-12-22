@@ -1,166 +1,127 @@
 import { Link } from 'react-router-dom'
-import { FaRegUser, FaLock, FaRegEnvelope, FaAddressCard, FaRegUserCircle } from 'react-icons/fa';
+import { Lock, User } from 'phosphor-react';
 import Heading from "../../components/Heading";
 import Text from "../../components/Text";
 import Button from "../../components/Button";
 import { TextInput } from "../../components/TextInput";
 import logo from '../../assets/parrot.svg';
-import { FormEvent, useState } from 'react';
-import Dropzone from '../Dropzone';
-import api from '../../services/api';
-
-interface AuthFormProps{
+import { FormEvent} from 'react';
+interface AuthFormProps {
   formTitle: string;
   submitFormButtonText: string;
+  submitFormButtonAction: (auth: Auth) => void;
   linkDescription: string;
-  submitFormButtonAction: ( auth: Auth ) => void
   routeName: string;
-  showOptional: boolean;
+  showNameInput?: boolean;
 }
 
-interface AuthFormElements extends HTMLFormControlsCollection{  
+interface AuthFormElements extends HTMLFormControlsCollection {
   user: HTMLInputElement;
-  password: HTMLInputElement;
   name?: HTMLInputElement;
-  email?: HTMLInputElement;
-  imageUrl?: HTMLInputElement;
-  
+  password: HTMLInputElement;
 }
 
-interface AuthFormElement extends HTMLFormElement{
+interface AuthFormElement extends HTMLFormElement {
   readonly elements: AuthFormElements
 }
 
-export interface Auth{
+export interface Auth {
   user: string;
-  password: string;
   name?: string;
-  email?: string;
-  image?: boolean;
-  imageUrl?: string;
+  password: string;
 }
 
-function AuthForm({ 
-  formTitle, 
-  submitFormButtonText, 
-  linkDescription, 
-  submitFormButtonAction, 
+function AuthForm({
+  formTitle,
+  submitFormButtonText,
+  submitFormButtonAction,
+  linkDescription,
   routeName,
-  showOptional
-}: AuthFormProps){
+  showNameInput,
+}: AuthFormProps) {
+  function handleSubmit(event: FormEvent<AuthFormElement>) {
+      event.preventDefault();
+      const form = event.currentTarget;
 
-  const [selectedFile, setSelectedFile] = useState<File>()
-  const token = localStorage.getItem("accessToken")
-
-  async function handleSubmit(event: FormEvent<AuthFormElement>){
-    event.preventDefault()
-    const form = event.currentTarget
-
-    if(selectedFile){
-      const data = new FormData()
-          data.append("user", form.elements.user.value)
-          data.append("password", form.elements.password.value)
-          data.append("name", form.elements.name.value)
-          data.append("imageUrl", form.elements.imageUrl.value)
-          data.append("file", selectedFile)
-/*         if(selectedFile){
-            data.append("file", selectedFile)
-         } */      
-
-      try{
-        const response = await api.post("/security/register", data, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          })
-          
-      }catch(err){
-          console.log(err)
-          alert("Erro ao criar post")
-      }
-
-    }
-    
-    const auth = {
-        user: form.elements.user.value,
-        password: form.elements.password.value,
-        name: form.elements.name?.value,
-        email: form.elements.email?.value,
-        imageUrl: form.elements.imageUrl?.value
+      const auth = {
+          user: form.elements.user.value,
+          name: form.elements.name?.value,
+          password: form.elements.password.value
 
       }
-
-    submitFormButtonAction(auth)
+      submitFormButtonAction(auth);
   }
-
   return (
-    <div className="text-cyan-50 flex flex-col items-center mt-10">
-      <header className="flex flex-col items-center">
-      <img src={logo} alt="Logo"/>
-        <Heading size="lg" className="mt-2">Sysmap Parrot</Heading>
-        <Text className="mt-1 opacity-50">{formTitle}</Text>
-      </header>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4 items-stretch w-full max-w-sm mt-5">  
-        <label htmlFor="user" className="flex flex-col gap-2">
-          <Text>Login</Text>
-          <TextInput.Root>
-            <TextInput.Icon>
-              <FaRegUser />
-            </TextInput.Icon>
-            <TextInput.Input  id="user" type="text" placeholder="Digite seu login" />
-          </TextInput.Root>
-        </label>
-        <label htmlFor="password" className="flex flex-col gap-2">
-          <Text>Senha</Text>
-          <TextInput.Root>
-            <TextInput.Icon>
-              <FaLock />
-            </TextInput.Icon>
-            <TextInput.Input  id="password" type="password" placeholder="***********" />
-          </TextInput.Root>
-        </label>
-        {showOptional && (
-            <label htmlFor="name" className="flex flex-col gap-2">
-              <Text>Nome</Text>
-              <TextInput.Root>
-                <TextInput.Icon>
-                  <FaAddressCard />
-                </TextInput.Icon>
-                <TextInput.Input id="name" type="text" placeholder="Digite seu nome" />
-              </TextInput.Root>
-            </label>
-          )}
-          {showOptional && (
-            <label htmlFor="email" className="flex flex-col gap-2">
-              <Text>E-mail</Text>
-              <TextInput.Root>
-                <TextInput.Icon>
-                  <FaRegEnvelope />
-                </TextInput.Icon>
-                <TextInput.Input id="email" type="text" placeholder="Digite seu e-mail" />
-              </TextInput.Root>
-            </label>
-          )}
-          {showOptional && (
-            <label htmlFor="imageUrl" className="flex flex-col gap-2">
-              <Text>Foto de Perfil</Text>
-              <TextInput.Root>          
-                <Dropzone onFileUploaded={setSelectedFile}/>
-              </TextInput.Root>
-            </label>         
-        )}
-        
-        <Button type="submit" className='mt-4'>{submitFormButtonText}</Button>
-      </form>
-      <footer className="flex flex-col items-center gap-4 mt-8">
-          <Text asChild size="sm">
-            <Link 
-              to={routeName} 
-              className="text-gray-400 underline hover:text-gray-200">{linkDescription}
-            </Link>
-        </Text>
-      </footer>
-    </div>
+      <div>
+          <div className="text-cyan-50 flex flex-col items-center mt-16">
+              <header className='flex flex-col items-center'>
+                  <img src={logo} alt="Logo" />
+
+                  <Heading size="lg">Sysmap Parrot</Heading>
+
+                  <Text className='mt-1 opacity-50'>{formTitle}</Text>
+              </header>
+
+              <form
+                  onSubmit={handleSubmit}
+                  className='flex flex-col gap-4 items-stretch w-full max-w-sm mt-10'>
+                  {showNameInput && (
+                      <label htmlFor="name" className='flex flex-col gap-2'>
+                          <Text>Nome</Text>
+                          <TextInput.Root>
+                              <TextInput.Icon>
+                                  <User />
+                              </TextInput.Icon>
+                              <TextInput.Input
+                                  id='name'
+                                  type='text'
+                                  placeholder='Digite o nome do usuário'
+                              />
+                          </TextInput.Root>
+                      </label>
+                  )}
+
+                  <label htmlFor="user" className='flex flex-col gap-2'>
+                      <Text>Endereço de e-mail</Text>
+                      <TextInput.Root>
+                          <TextInput.Icon>
+                              <User />
+                          </TextInput.Icon>
+                          <TextInput.Input
+                              id='user'
+                              type='text'
+                              placeholder='Digite seu login'
+                          />
+                      </TextInput.Root>
+                  </label>
+                  <label htmlFor="password" className='flex flex-col gap-2'>
+                      <Text>Sua senha</Text>
+                      <TextInput.Root>
+                          <TextInput.Icon>
+                              <Lock />
+                          </TextInput.Icon>
+                          <TextInput.Input
+                              id='password'
+                              type='password'
+                              placeholder='*******'
+                          />
+                      </TextInput.Root>
+                  </label>
+
+                  <Button type='submit' className='mt-4'>{submitFormButtonText}</Button>
+              </form>
+
+
+              <footer className='flex-col items-center gap-4 mt-8'>
+                  < Text asChild size='sm'>
+                      < Link to={routeName} className='text-gray-400 underline hover:text-gray-200'
+                      >
+                          {linkDescription}
+                      </ Link>
+                  </Text>
+              </footer>
+          </div>
+      </div >
   );
 }
 

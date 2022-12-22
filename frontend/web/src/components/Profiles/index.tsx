@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { FaRegUserCircle } from "react-icons/fa"
+import { UserCircle } from "phosphor-react"
 import { getAuthHeader } from "../../services/auth"
 import api from "../../services/api"
 import Profile from "../Profile"
@@ -82,7 +82,7 @@ function Profiles(){
                         src={profiles.find(e => e._id === profileId)?.imageUrl}
                         style={{ width: '4%', borderRadius: '50px' }}
                         />
-                    ) : (<FaRegUserCircle size={48} height="light" className="text-slate-100"/>)}
+                    ) : (<UserCircle size={48} height="light" className="text-slate-100"/>)}
                     <Text className="font-extrabold ml-2">{user}</Text>
                 </div>
             </Heading>
@@ -90,12 +90,11 @@ function Profiles(){
                 {profiles.map(profile => (
                 <li key={profile._id} className="border-b border-slate-400 mt-4 pl-5">
                     <div className="flex flex-row items-center">
-                        {profile.imageUrl ? <Avatar 
-                            className="border-solid border-2 border-sky-500" 
-                            alt={profile.name} 
-                            src={profile.imageUrl} 
-                            sx={{ width: 56, height: 56 }}/>
-                            : <FaRegUserCircle size={48} height="light" className="text-slate-100"/> }                       
+                        {profile.imageUrl ? <img
+                            className="border-solid border-2 border-sky-500"
+                            src={profile.imageUrl}
+                            style={{ width: '4%', borderRadius: '50px' }}
+                        />: <UserCircle size={66} height="light" className="text-slate-100"/> }                       
                         <Text className="font-extrabold ml-2">{profile.name}</Text>
                     </div> 
                     <footer className='mt-4 flex justify-start gap-4 mb-4'>

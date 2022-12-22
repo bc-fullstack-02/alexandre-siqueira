@@ -15,8 +15,8 @@ function Login() {
 
   async function handleLogin(auth: Auth){
     try{
-      const { data } = await api.post("/security/login", auth)
-      
+
+      const { data } = await api.post("/security/login", auth)      
       const { token } = data
       const decodedToken = jwt_decode(token) as UserToken      
       localStorage.setItem("profile", decodedToken.profile)
