@@ -4,6 +4,7 @@ import { getAuthHeader } from '../../services/auth';
 import Menu from '../../components/Menu'
 import Feed from "../../components/Feed"
 import { Post } from '../../Model/Post';
+import { likePost, unlikePost } from '../../services/posts';
 
 function Home(){
 
@@ -22,25 +23,18 @@ function Home(){
     }, [])
     
     async function handleLike(postId: String){
+        const [ post, ...rest] = posts.filter((post) => post._id === postId)
         try {
-                await api.post(`/posts/${postId}/like`, null, authHeader)
-                const newPost = posts
-                    .filter((post) => post._id === postId)
-                    .map((post) => { 
-                        post.likes.push(profile)
-                        return post 
-                    })
-
-            setPosts((posts) => {
-                const post = newPost[0]
-                const index = posts.indexOf(post)
-                posts[index] = post
-                return [ ...posts]
-            })
+            if(post && !post.likes.includes(profile)){
+                const newPost = await likePost(post, profile)
+                changePostItem(newPost)
+            }else{
+                const newPost = await unlikePost(post, profile)
+                changePostItem(newPost)
+            }
         } catch (err) {
             console.error(err)
-        }
-        
+        }        
     }   
     
     async function newPostCreated(post: Post) {
@@ -53,6 +47,15 @@ function Home(){
             console.error(err)
         }
                         
+    }
+
+    function changePostItem(newPost: Post){
+        setPosts((posts) => {
+            const post = newPost
+            const index = posts.indexOf(post)
+            posts[index] = post
+            return [...posts]
+        })
     }
 
     return (

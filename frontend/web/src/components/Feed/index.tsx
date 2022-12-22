@@ -7,11 +7,11 @@ import { useEffect, useState } from "react";
 import { Profile } from "../../Model/Profile";
 import api from "../../services/api";
 import { getAuthHeader } from "../../services/auth";
-import { Avatar } from "@mui/material";
+
 
 interface FeedProps {
   posts: Post[];
-  handleLike: (postId: String) => void;
+  handleLike: (postId: string) => void;
 }
 
 function Feed({ posts, handleLike }: FeedProps) {
@@ -39,20 +39,13 @@ function Feed({ posts, handleLike }: FeedProps) {
           Página Inicial
         </Text>
         <div className="flex flex-row items-center ml-5 my-4">
-          {profile.image ? (
-            <Avatar
+          {profile.imageUrl ? (
+            <img
               className="border-solid border-2 border-sky-500"
-              alt={profile.name}
               src={profile.imageUrl}
-              sx={{ width: 56, height: 56 }}
+              style={{ width: '4%', borderRadius: '50px' }}
             />
-          ) : (
-            <FaRegUserCircle
-              size={48}
-              height="light"
-              className="text-slate-100"
-            />
-          )}
+          ) : (<FaRegUserCircle size={48} height="light" className="text-slate-100"/>)}
           <Text className="font-extrabold ml-2">{user}</Text>
         </div>
       </Heading>

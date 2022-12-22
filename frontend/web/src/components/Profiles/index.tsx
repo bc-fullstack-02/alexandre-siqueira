@@ -76,11 +76,13 @@ function Profiles(){
             <Heading className="border-b border-slate-400 mt-4">
                 <Text size="lg" className="font-extrabold ml-5">Amigos</Text>
                 <div className="flex flex-row items-center ml-5 my-4">                
-                    <FaRegUserCircle
-                        size={48}
-                        height="light"
-                        className="text-slate-100"
-                    />
+                    {profiles.find(e => e._id === profileId)?.imageUrl ? (
+                        <img
+                        className="border-solid border-2 border-sky-500"
+                        src={profiles.find(e => e._id === profileId)?.imageUrl}
+                        style={{ width: '4%', borderRadius: '50px' }}
+                        />
+                    ) : (<FaRegUserCircle size={48} height="light" className="text-slate-100"/>)}
                     <Text className="font-extrabold ml-2">{user}</Text>
                 </div>
             </Heading>

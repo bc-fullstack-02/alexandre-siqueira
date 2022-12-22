@@ -9,7 +9,7 @@ import CreatePostDialog from "../../components/CreatePostDialog"
 import { Post } from "../../Model/Post";
 
 interface MenuProps{
-    newPostCreated: (post: Post) => void
+    newPostCreated?: (post: Post) => void
 }
 
 function Menu(props: MenuProps) {
@@ -18,7 +18,7 @@ function Menu(props: MenuProps) {
 
     function postCreated(post: Post) {
         setOpen(false)
-        props.newPostCreated(post)
+        props.newPostCreated && props.newPostCreated(post)
     }
 
     return(
