@@ -57,7 +57,17 @@ function Profile() {
           <Text className="font-extrabold ml-2">{user}</Text>
         </div>
       </Heading>
-      <div className="mt-4 w-full flex flex-row items-stretch max-w-sm  justify-end">
+      <div className="mt-4 ml-4 w-full flex flex-row items-stretch max-w-sm  justify-start">
+        <table>
+          <tr style={{ lineHeight: 5 }}>
+            <td><Text size="lg">Nome:</Text></td> <td> <Text size="lg" className="py-2 px-2 rounded bg-gray-800 focus-within:ring-2 ring-cyan-300  ml-4">{profile.name}</Text> </td>{" "}
+          </tr>
+          <tr>
+            <td><Text size="lg">E-mail:</Text></td> <td> <Text size="lg" className="py-2 px-2 rounded bg-gray-800 focus-within:ring-2 ring-cyan-300 ml-4">{profile.email}</Text> </td>{" "}
+          </tr>
+        </table>
+      </div>
+      <div className="mt-8 w-full flex flex-row items-stretch max-w-sm  justify-end">
         <Button className="ml-4 max-w-sm" onClick={handleLogout}>
           Sair
         </Button>

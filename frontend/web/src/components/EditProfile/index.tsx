@@ -79,6 +79,10 @@ function EditProfile() {
     }
   }
 
+  function handleCancel() {
+    navigate("/profile");
+  }
+
   return (
     <div className="basis-4/6 overflow-y-auto scroll-smooth">
       <Heading className="border-b border-slate-400 mt-4">
@@ -145,7 +149,7 @@ function EditProfile() {
             </label>
 
             <div className="flex flex-1 gap-2">
-              <Button onClick={() => window.location.reload()}>Cancelar</Button>
+              <Button onClick={handleCancel}>Cancelar</Button>
               <Button type="submit">Salvar</Button>
             </div>
           </form>

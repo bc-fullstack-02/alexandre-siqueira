@@ -6,7 +6,7 @@ function ProfilePage(){
     return (
         <div className="w-screen h-screen flex"> 
             <Menu />               
-            <Profile />
+            <Profile />        
             <LoggedUser />                        
         </div>
     )
