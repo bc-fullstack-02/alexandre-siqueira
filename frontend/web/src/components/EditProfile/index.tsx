@@ -7,7 +7,7 @@ import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { getAuthHeader } from "../../services/auth";
 import api from "../../services/api";
 import { TextInput } from "../TextInput";
-import Dropzone from "../Dropzone";
+import Dropzone, { DropZoneEdit } from "../Dropzone";
 
 function EditProfile() {
   const profileClean = {
@@ -69,11 +69,9 @@ function EditProfile() {
       data.append("file", selectedFile);
     }
     try {
-            console.log(data);
             const response = await api.put("/profiles", data, {
               headers: { authorization: `Bearer ${token}` },
             })
-            console.log(response);
             navigate("/home");
     } catch (err) {
       console.error(err)
@@ -100,7 +98,7 @@ function EditProfile() {
           <Text className="font-extrabold ml-2">{user}</Text>
         </div>
       </Heading>
-      <div className="mt-4 w-full flex flex-col items-stretch max-w-sm  justify-end">
+      <div className="w-full flex flex-col items-stretch max-w-sm  justify-end">
         <div>
           <form
             onSubmit={handleSubmit}
@@ -108,9 +106,10 @@ function EditProfile() {
           >
             <label htmlFor="image" className="flex flex-col gap-2">
               <Text>Foto de Perfil</Text>
-              <TextInput.Root>
-                <Dropzone onFileUploaded={setSelectedFile} />
-              </TextInput.Root>
+              <div className="w-fit ">
+                <DropZoneEdit onFileUploaded={setSelectedFile} midia={undefined}/>
+              </div>     
+              <Text>Clique na imagem para trocar sua foto!</Text>           
             </label>
 
             <label htmlFor="name" className="flex flex-col gap-2">
