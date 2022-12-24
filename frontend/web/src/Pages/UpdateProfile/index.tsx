@@ -1,14 +1,14 @@
+import EditProfile from "../../components/EditProfile"
 import LoggedUser from "../../components/LoggedUser"
 import Menu from "../../components/Menu"
-import Profile from "../../components/Profile"
 
-function ProfilePage(){
+function UpdateProfile(){
     return (
         <div className="w-screen h-screen flex"> 
             <Menu />               
-            <Profile />
-            <LoggedUser />                        
+            <EditProfile />
+            <LoggedUser />                         
         </div>
     )
 }
-export default ProfilePage
+export default UpdateProfile

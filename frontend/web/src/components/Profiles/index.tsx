@@ -6,7 +6,6 @@ import Profile from "../Profile"
 import Heading from "../Heading"
 import Text from "../Text"
 import Button from "../Button"
-import {Avatar} from '@mui/material';
 
 interface Profile{
     _id: string,
@@ -82,7 +81,7 @@ function Profiles(){
                         src={profiles.find(e => e._id === profileId)?.imageUrl}
                         style={{ width: '4%', borderRadius: '50px' }}
                         />
-                    ) : (<UserCircle size={48} height="light" className="text-slate-100"/>)}
+                    ) : (<UserCircle size={48} className="text-slate-100"/>)}
                     <Text className="font-extrabold ml-2">{user}</Text>
                 </div>
             </Heading>
@@ -94,7 +93,7 @@ function Profiles(){
                             className="border-solid border-2 border-sky-500"
                             src={profile.imageUrl}
                             style={{ width: '4%', borderRadius: '50px' }}
-                        />: <UserCircle size={66} height="light" className="text-slate-100"/> }                       
+                        />: <UserCircle size={66} className="text-slate-100"/> }                       
                         <Text className="font-extrabold ml-2">{profile.name}</Text>
                     </div> 
                     <footer className='mt-4 flex justify-start gap-4 mb-4'>
