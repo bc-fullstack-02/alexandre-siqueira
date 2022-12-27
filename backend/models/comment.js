@@ -6,6 +6,14 @@ const commentSchema = new Schema({
     required: true,
     minLength: 2
   },
+  createAt: {
+    type: Date,
+    default: Date.now
+  },
+  updateAt: {
+    type: Date,
+    default: Date.now
+  },
   profile: {
     type: Schema.Types.ObjectId,
     required: true,
