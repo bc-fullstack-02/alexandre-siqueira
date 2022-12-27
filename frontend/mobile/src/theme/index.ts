@@ -10,7 +10,7 @@ export const THEME = {
         CAPTION_300: '#D4D4D8',
     },
     FONT_FAMILY: {
-        REGULAR: 'Inter_400Regular,', 
+        REGULAR: 'Inter_400Regular', 
         SEMI_BOLD: 'Inter_600SemiBold', 
         BOLD: 'Inter_700Bold', 
         BLACK: 'Inter_900Black'

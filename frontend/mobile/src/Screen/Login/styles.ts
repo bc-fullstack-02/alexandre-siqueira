@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        marginTop: 48
+        marginTop: 68
     },
     logo:{
         width: 100,

@@ -3,6 +3,8 @@ import { styles } from "./styles"
 
 export function Loading(){
     return (
-        <View style={styles.container}><Text>Carregando...</Text></View>
+        <View style={styles.container}>
+            <Text>Carregando...</Text>
+        </View>
     )
 }

@@ -3,7 +3,7 @@ import { Image, View } from "react-native";
 import { Heading } from "../Heading";
 
 import { styles } from "./styles"
-import { logo } from "../../../assets/images/logo.png"
+import logo from "../../../assets/images/logo.png"
 
 export function Login(){
     return (

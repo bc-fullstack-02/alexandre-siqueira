@@ -1,26 +1,26 @@
+import {
+  useFonts,
+  Inter_400Regular,
+  Inter_600SemiBold,
+  Inter_700Bold,
+  Inter_900Black,
+} from '@expo-google-fonts/inter';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { 
-  useFonts, 
-  Inter_400Regular, 
-  Inter_600SemiBold, 
-  Inter_700Bold, 
-  Inter_900Black} from '@expo-google-fonts/inter'
-import { Login } from './src/Screen/Login';
 import { Background } from './src/components/Background';
 import { Loading } from './src/components/Loading';
+import { Login } from './src/Screen/Login';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
-    Inter_400Regular, 
-    Inter_600SemiBold, 
-    Inter_700Bold, 
-    Inter_900Black
+    Inter_400Regular,
+    Inter_600SemiBold,
+    Inter_700Bold,
+    Inter_900Black,
   })
 
-    return (
+  return (
       <SafeAreaProvider>
-        { fontsLoaded ? (<Background> <Login /> </Background> ) : <Loading /> }              
+        {fontsLoaded ? <Background><Login /></Background>  : <Loading /> }               
       </SafeAreaProvider>
-    )
+    );
 }
-
