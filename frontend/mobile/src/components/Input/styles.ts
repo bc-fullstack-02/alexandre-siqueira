@@ -8,13 +8,15 @@ export const styles = StyleSheet.create({
         maxWidth: "100%",
         minWidth: 240,
         borderRadius: 10,
+        padding: 8,
         backgroundColor: THEME.COLORS.BACKGROUND_900,
-        padding: 8
 
     },
     input: {
-        marginStart: 8,
+        marginStart: 12,
+        flex: 1,
         color: THEME.COLORS.INPUT,
-        fontFamily: THEME.FONT_FAMILY.REGULAR
+        fontFamily: THEME.FONT_FAMILY.REGULAR,
+        placeHolderTextColor: THEME.COLORS.INPUT
     }
 })
