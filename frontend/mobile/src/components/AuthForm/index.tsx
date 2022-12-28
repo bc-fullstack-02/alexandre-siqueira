@@ -19,12 +19,10 @@ interface AuthFormProps{
   formTitle: string;
   submitFormButtonText: string;
   submitFormButtonAction: (auth: Auth) => void;
-  linkDescription: string;
-  routeName: string;
   showNameInput?: boolean;
 }
 
-export function AuthForm({ formTitle, submitFormButtonText, submitFormButtonAction, linkDescription } : AuthFormProps){
+export function AuthForm({ formTitle, submitFormButtonText, submitFormButtonAction } : AuthFormProps){
 
     const [ user, setUser] = useState("")
     const [ password, setPassword] = useState("")
@@ -68,7 +66,6 @@ export function AuthForm({ formTitle, submitFormButtonText, submitFormButtonActi
             <Spacer />
             <Button onPress={() => submitFormButtonAction({user, password})} title={submitFormButtonText} /> 
             <Spacer />
-            <Text style={styles.link}>{linkDescription}</Text>
         </KeyboardAvoidingView>
     )
 }
