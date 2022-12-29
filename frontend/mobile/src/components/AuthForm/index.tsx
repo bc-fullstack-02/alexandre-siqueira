@@ -9,11 +9,7 @@ import { styles } from "./styles"
 import logo from "../../../assets/images/logo.png"
 import { useState } from "react";
 
-export interface Auth {
-    user: string;
-    name?: string;
-    password: string;
-  }
+import { Auth } from "../../@types/auth";
 
 interface AuthFormProps{
   formTitle: string;

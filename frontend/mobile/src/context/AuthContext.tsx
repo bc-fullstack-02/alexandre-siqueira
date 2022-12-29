@@ -1,5 +1,9 @@
 import React, { ReactElement, ReactNode, useReducer } from "react";
 import jwtDecode from "jwt-decode";
+import * as SecureStore from "expo-secure-store";
+
+import { Auth, userToken } from "../@types/auth";
+import { Action } from "../@types/reducer";
 
 import api from "../services/api";
 
@@ -11,6 +15,7 @@ interface IAuthContext{
   errorMessage: string | null,
   login?: () => void,
   register?: () => void,
+  tryLocalLogin?: () => void,
 }
 
 const defaultValue = {
@@ -24,7 +29,7 @@ const defaultValue = {
 const Context = React.createContext<IAuthContext>(defaultValue);
 
 const Provider = ({ children }: { children: ReactNode }) => {
-  const reducer = (state, action) => {
+  const reducer = (state: any, action: Action) => {
     //action: { type: string, payload: any}
     switch (action.type) {
       case "login":
@@ -47,12 +52,16 @@ const Provider = ({ children }: { children: ReactNode }) => {
 
   const [state, dispatch] = useReducer(reducer, defaultValue);
 
-  const login = async ({ user, password }) => {
+  const login = async ({ user, password }: Auth) => {
     try {
       const response = await api.post("/security/login", { user, password });
       const accessToken = response.data;
       const { token } = accessToken;
-      const { profile, user: userName } = jwtDecode(token);
+      const { profile, user: userName } = jwtDecode(token) as userToken;
+
+      await SecureStore.setItemAsync("token", token)
+      await SecureStore.setItemAsync("user", userName)
+      await SecureStore.setItemAsync("profile", profile)
 
       dispatch({
         type: "login",
@@ -67,7 +76,7 @@ const Provider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const register = async ({ user, password }) => {
+  const register = async ({ user, password }: Auth) => {
     try {
       await api.post("/security/register", { user, password });
 
@@ -83,12 +92,25 @@ const Provider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const tryLocalLogin = async () => {
+    let token, user, profile
+    try {
+      token = await SecureStore.getItemAsync("token")
+      user = await SecureStore.getItemAsync("user")
+      profile = await SecureStore.getItemAsync("profile")
+      dispatch({ type: "login", payload:{token, user, profile}})
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <Context.Provider
       value={{
         ...state,
         login,
         register,
+        tryLocalLogin
       }}
     >
       {children}

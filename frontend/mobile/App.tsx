@@ -1,7 +1,7 @@
 import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { useContext } from "react";
+import { useContext, useEffect, useInsertionEffect } from "react";
 import { House, User, UsersThree } from "phosphor-react-native"
 
 import {
@@ -38,7 +38,11 @@ const MyTheme = {
 };
 
 function App() {
-  const { token } = useContext(AuthContext);
+  const { token, tryLocalLogin } = useContext(AuthContext);
+
+  useEffect(() => {
+    tryLocalLogin && tryLocalLogin()
+  }, [])
 
   const [fontsLoaded] = useFonts({
     Inter_400Regular,
