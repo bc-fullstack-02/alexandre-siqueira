@@ -26,21 +26,11 @@ securityRouter.route('/register')
 
 securityRouter.route('/login')
 .post((req, res, next) => Promise.resolve()
-        .then(() => User.find({}))
-        .then(() => User.findOne({ user: req.body.user }).populate('profile')
-        .then(data => {
-            data ? bcrypt.compare(req.body.password, data.password)
-                .then(passwordHash => {
-                    var token = {
-                        accessToken: jwt.sign({
-                            name: data.name,
-                            user: data.user,
-                            profile_id: data.profile._id.toString(),
-                        }, JWT_PASS)
-                    }
-                    passwordHash ? res.status(201).json(token) : next(createError(401))
-                }) : next(createError(401))
-        })
-        .catch((err) => next(err))))
+    .then(() => User.findOne({ user: req.body.user }))
+    .then((user) => user ? {passHashed: bcrypt.compare(req.body.password, user.password), user} : next(createError(404)))
+    .then(({ passHashed, user }) => passHashed ? jwt.sign(JSON.stringify(removePassword(user)), JWT_PASS) : next(createError(401)))
+    .then((token) => token ? res.status(200).json({token}) : next(createError(401)))
+    .catch(err => next(err))
+)
 
 module.exports = securityRouter
