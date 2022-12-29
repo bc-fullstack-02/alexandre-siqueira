@@ -1,3 +1,8 @@
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { useContext } from "react";
+
 import {
   useFonts,
   Inter_400Regular,
@@ -5,6 +10,11 @@ import {
   Inter_700Bold,
   Inter_900Black,
 } from "@expo-google-fonts/inter";
+
+import {
+  Provider as AuthProvider,
+  Context as AuthContext
+} from "./src/context/AuthContext"
 
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Loading } from "./src/components/Loading";
@@ -14,13 +24,13 @@ import { Home } from "./src/Screen/Home";
 import { Profile } from "./src/Screen/Profile";
 import { Friends } from "./src/Screen/Friends";
 
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { THEME } from "./src/theme";
 
-export default function App() {
+function App() {
+
+  const { token } = useContext(AuthContext)
+
   const [fontsLoaded] = useFonts({
     Inter_400Regular,
     Inter_600SemiBold,
@@ -30,8 +40,6 @@ export default function App() {
 
   const Stack = createNativeStackNavigator();
   const Tab = createBottomTabNavigator();
-
-  const token = false;
 
   return (
     <SafeAreaProvider>
@@ -65,4 +73,12 @@ export default function App() {
       )}
     </SafeAreaProvider>
   );
+}
+
+export default () => {
+  return (
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  )
 }
