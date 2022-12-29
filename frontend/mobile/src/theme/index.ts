@@ -14,6 +14,8 @@ export const THEME = {
         BUTTON: '#81DBF7',
 
         ERROR: 'red',
+
+        BORDER: '#7C7C8A',
     },
     FONT_FAMILY: {
         REGULAR: 'Inter_400Regular', 

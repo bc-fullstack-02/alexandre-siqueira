@@ -7,15 +7,16 @@ import { Action } from "../@types/reducer";
 
 import api from "../services/api";
 
-interface IAuthContext{
-  token: string | null,
-  user: string | null,
-  profile: string | null,
-  isLoading: boolean,
-  errorMessage: string | null,
-  login?: () => void,
-  register?: () => void,
-  tryLocalLogin?: () => void,
+interface IAuthContext {
+  token: string | null;
+  user: string | null;
+  profile: string | null;
+  isLoading: boolean;
+  errorMessage: string | null;
+  login?: () => void;
+  register?: () => void;
+  tryLocalLogin?: () => void;
+  logout?: () => void;
 }
 
 const defaultValue = {
@@ -36,15 +37,17 @@ const Provider = ({ children }: { children: ReactNode }) => {
         return {
           ...state,
           ...action.payload,
-          errorMessage: null, 
+          errorMessage: null,
         };
       case "register":
-        return { 
+        return {
           ...state,
           errorMessage: null,
-         };
+        };
       case "add_error":
-        return { ...state, errorMessage: action.payload};
+        return { ...state, errorMessage: action.payload };
+      case "logout":
+        return { token: null, profile: null, user: null, errorMessage: null };
       default:
         return state;
     }
@@ -59,9 +62,9 @@ const Provider = ({ children }: { children: ReactNode }) => {
       const { token } = accessToken;
       const { profile, user: userName } = jwtDecode(token) as userToken;
 
-      await SecureStore.setItemAsync("token", token)
-      await SecureStore.setItemAsync("user", userName)
-      await SecureStore.setItemAsync("profile", profile)
+      await SecureStore.setItemAsync("token", token);
+      await SecureStore.setItemAsync("user", userName);
+      await SecureStore.setItemAsync("profile", profile);
 
       dispatch({
         type: "login",
@@ -71,8 +74,8 @@ const Provider = ({ children }: { children: ReactNode }) => {
       console.error(error);
       dispatch({
         type: "add_error",
-        payload: "Ocorreu um erro ao fazer login!"
-      })
+        payload: "Ocorreu um erro ao fazer login!",
+      });
     }
   };
 
@@ -87,22 +90,36 @@ const Provider = ({ children }: { children: ReactNode }) => {
       console.error(error);
       dispatch({
         type: "add_error",
-        payload: "Ocorreu um erro ao cadastrar o usuário!"
-      })
+        payload: "Ocorreu um erro ao cadastrar o usuário!",
+      });
     }
   };
 
   const tryLocalLogin = async () => {
-    let token, user, profile
+    let token, user, profile;
     try {
-      token = await SecureStore.getItemAsync("token")
-      user = await SecureStore.getItemAsync("user")
-      profile = await SecureStore.getItemAsync("profile")
-      dispatch({ type: "login", payload:{token, user, profile}})
+      token = await SecureStore.getItemAsync("token");
+      user = await SecureStore.getItemAsync("user");
+      profile = await SecureStore.getItemAsync("profile");
+      dispatch({ type: "login", payload: { token, user, profile } });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
+
+  const logout = async () => {
+    try {
+      await SecureStore.deleteItemAsync("token");
+      await SecureStore.deleteItemAsync("user");
+      await SecureStore.deleteItemAsync("profile");
+
+      dispatch({
+        type: "logout",
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <Context.Provider
@@ -110,7 +127,8 @@ const Provider = ({ children }: { children: ReactNode }) => {
         ...state,
         login,
         register,
-        tryLocalLogin
+        tryLocalLogin,
+        logout
       }}
     >
       {children}

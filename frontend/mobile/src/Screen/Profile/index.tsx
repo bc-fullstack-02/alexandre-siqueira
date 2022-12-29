@@ -1,12 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Text, View } from "react-native";
+import { UserCircle } from "phosphor-react-native";
 
-import { styles } from "./styles"
+import { Context as AuthContext } from "../../context/AuthContext"
 
-export function Profile(){
-    return (
-        <View style={styles.container}>
-            <Text>Profile</Text>
+import { styles } from "./styles";
+import { Button } from "../../components/Button";
+
+export function Profile() {
+
+    const { user, logout } = useContext(AuthContext)
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.container}>
+        <View style={styles.heading}>
+          <UserCircle color="white" size={48} weight="thin" />
+          <Text style={styles.userNameText}>{user}</Text>
         </View>
-    )
+        <Button title="Sair" onPress={logout}  />      
+      </View>
+    </View>
+  );
 }
