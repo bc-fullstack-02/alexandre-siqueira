@@ -52,7 +52,7 @@ export function AuthForm({ formTitle, submitFormButtonText, submitFormButtonActi
                 <Input.Input 
                     value={password}
                     onChangeText ={setPassword}
-                    placeholder="********"
+                    placeholder="Digite sua senha!"
                     placeholderTextColor={THEME.COLORS.INPUT}
                     autoCapitalize="none"
                     secureTextEntry
