@@ -12,6 +12,8 @@ export const THEME = {
 
         INPUT: '#7C7C8A',
         BUTTON: '#81DBF7',
+
+        ERROR: 'red',
     },
     FONT_FAMILY: {
         REGULAR: 'Inter_400Regular', 
