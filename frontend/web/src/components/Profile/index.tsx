@@ -26,6 +26,16 @@ function Profile() {
     navigate("/editprofile");
   }
 
+  async function handleDelete() {
+    try {
+      await api.delete(`/users/me`, authHeader);
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
+    
+  }
+
   useEffect(() => {
     const getProfiles = async () => {
       try {
@@ -73,6 +83,9 @@ function Profile() {
         </Button>
         <Button className="ml-4 max-w-sm" onClick={handleEdit}>
           Editar
+        </Button>
+        <Button className="ml-4 max-w-sm" onClick={handleDelete}>
+          Excluir
         </Button>
       </div>
     </div>
