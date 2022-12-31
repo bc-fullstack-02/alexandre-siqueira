@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { KeyboardAvoidingView, Image, Platform } from "react-native";
-import { At, User, Lock } from "phosphor-react-native";
+import { User, Lock } from "phosphor-react-native";
 
 import { Heading } from "../../components/Heading";
 import { Input } from "../../components/Input";
@@ -17,17 +17,14 @@ interface AuthFormProps {
   formTitle: string;
   submitFormButtonText: string;
   submitFormButtonAction: (auth: Auth) => void;
-  showNameInput?: boolean;
 }
 
 export function AuthForm({
   formTitle,
   submitFormButtonText,
   submitFormButtonAction,
-  showNameInput,
 }: AuthFormProps) {
   const [user, setUser] = useState("");
-  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
   return (
@@ -38,36 +35,19 @@ export function AuthForm({
     >
       <Image source={logo} style={logo} resizeMethod="scale" />
       <Heading title="Sysmap Parrot" subtitle={formTitle} />
-
-      {showNameInput && (
         <Input.Root>
           <Input.Icon>
             <User color={THEME.COLORS.INPUT} />
           </Input.Icon>
           <Input.Input
-            value={name}
-            onChangeText={setName}
-            placeholder="Digite seu nome"
+            value={user}
+            onChangeText={setUser}
+            placeholder="Digite seu usuário..."
             placeholderTextColor={THEME.COLORS.INPUT}
             autoCapitalize="none"
             autoCorrect
           />
         </Input.Root>
-      )}
-      <Spacer />
-      <Input.Root>
-        <Input.Icon>
-          <At color={THEME.COLORS.INPUT} />
-        </Input.Icon>
-        <Input.Input
-          value={user}
-          onChangeText={setUser}
-          placeholder="Digite seu e-mail"
-          placeholderTextColor={THEME.COLORS.INPUT}
-          autoCapitalize="none"
-          autoCorrect
-        />
-      </Input.Root>
       <Spacer />
       <Input.Root>
         <Input.Icon>
@@ -76,7 +56,7 @@ export function AuthForm({
         <Input.Input
           value={password}
           onChangeText={setPassword}
-          placeholder="Digite sua senha"
+          placeholder="Digite sua senha..."
           placeholderTextColor={THEME.COLORS.INPUT}
           autoCapitalize="none"
           autoCorrect
@@ -85,7 +65,7 @@ export function AuthForm({
       </Input.Root>
       <Spacer />
       <Button
-        onPress={() => submitFormButtonAction({ user, name, password })}
+        onPress={() => submitFormButtonAction({ user, password })}
         title={submitFormButtonText}
       />
       <Spacer />

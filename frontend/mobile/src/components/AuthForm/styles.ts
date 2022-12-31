@@ -1,32 +1,34 @@
-import { StyleSheet } from "react-native";
-import { THEME } from "../../theme";
 
-export const styles = StyleSheet.create({
+import { StyleSheet, ViewStyle, ImageStyle} from 'react-native'
+import { THEME } from '../../theme'
+
+type Style = {
+    container: ViewStyle;
+    containerPosition: ViewStyle;
+    logo: ImageStyle;
+    button: ViewStyle;
+}
+
+export const styles = StyleSheet.create<Style>({
     container: {
+        flexDirection: 'column',
         alignItems: 'center',
-        marginTop: 68
-    },
+        color: THEME.COLORS.TEXTSECONDARY,
+        marginTop: 40,
+        
+    }, 
     containerPosition: {
-        flex: 1,
-        alignItems: 'center',
-        marginTop: 72
+        alignItems: "center",
+        marginTop: 50
     },
-    logo:{
-        width: 100,
-        height: 100,
+    logo: {
+        width: 150,
+        height: 150
     },
-    button:{
+    button: {
         minWidth: 240,
-        borderRadius: 12
+        textAlign: 'center',
+        borderRadius: 12,
+        backgroundColor: 'red'
     },
-    text: {
-        color: THEME.COLORS.TEXT
-    },
-    link: {
-        color: THEME.COLORS.CAPTION_400,
-        fontSize: THEME.FONT_SIZE.SM,
-        textAlign: "center",
-        fontFamily: THEME.FONT_FAMILY.REGULAR,
-        textDecorationLine: "underline"
-    }
 })
