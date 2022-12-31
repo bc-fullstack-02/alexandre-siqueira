@@ -6,9 +6,7 @@ import ProfilePage from './Pages/ProfilePage'
 import Friends from './Pages/Friends'
 import "./index.css"
 import PostDetail from './Pages/PostDetail'
-import ProfileEdit from './Pages/UpdateProfile'
 import UpdateProfile from './Pages/UpdateProfile'
-
 
 const router = createBrowserRouter([
     {

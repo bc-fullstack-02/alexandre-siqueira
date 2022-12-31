@@ -5,9 +5,10 @@ import Menu from '../../components/Menu'
 import Feed from "../../components/Feed"
 import { Post } from '../../Model/Post';
 import { likePost, unlikePost } from '../../services/posts';
+import { messageRabbit } from "../../services/message"
 
 function Home(){
-
+    /* messageRabbit() */
     const authHeader = getAuthHeader()
     const profile = localStorage.getItem("profile") as string
     const user = localStorage.getItem("user") as string
