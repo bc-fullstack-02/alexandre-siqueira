@@ -1,8 +1,9 @@
 import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { useContext, useEffect, useInsertionEffect } from "react";
-import { House, User, UsersThree } from "phosphor-react-native"
+import { useContext, useEffect } from "react";
+import { House, User, UsersThree } from "phosphor-react-native";
 
 import {
   useFonts,
@@ -16,33 +17,33 @@ import {
   Provider as AuthProvider,
   Context as AuthContext,
 } from "./src/context/AuthContext";
+import { Provider as PostProvider } from "./src/context/PostContext";
 
-import { SafeAreaProvider } from "react-native-safe-area-context";
-import { Loading } from "./src/components/Loading";
 import { Login } from "./src/Screen/Login";
-import { SingUp } from "./src/Screen/SingUp";
-import { Home } from "./src/Screen/Home";
-import { Profile } from "./src/Screen/Profile";
+import { SignUp } from "./src/Screen/SignUp";
 import { Friends } from "./src/Screen/Friends";
+import { Profile } from "./src/Screen/Profile";
+import { HomeNavigationScreen } from "./src/Screen/HomeNavigationScreen";
 
+import { Loading } from "./src/components/Loading";
 import { THEME } from "./src/theme";
+import { navigationRef } from "./RootNavigation";
 
 const MyTheme = {
   ...DefaultTheme,
+  dark: true,
   colors: {
     ...DefaultTheme.colors,
     background: THEME.COLORS.BACKGROUND_900,
   },
-  statusBarStyle: "dark",
-  title: false,
 };
 
 function App() {
   const { token, tryLocalLogin } = useContext(AuthContext);
 
   useEffect(() => {
-    tryLocalLogin && tryLocalLogin()
-  }, [])
+    tryLocalLogin && tryLocalLogin();
+  }, []);
 
   const [fontsLoaded] = useFonts({
     Inter_400Regular,
@@ -57,42 +58,39 @@ function App() {
   return (
     <SafeAreaProvider>
       {fontsLoaded ? (
-        <NavigationContainer theme={MyTheme}>
+        <NavigationContainer theme={MyTheme} ref={navigationRef}>
           {!token ? (
             <Stack.Navigator
               screenOptions={{
                 headerShown: false,
-                statusBarStyle: "dark"
+                statusBarStyle: "dark",
               }}
             >
               <Stack.Screen name="Login" component={Login} />
-              <Stack.Screen name="SingUp" component={SingUp} />
+              <Stack.Screen name="SignUp" component={SignUp} />
             </Stack.Navigator>
           ) : (
             <Tab.Navigator
-              screenOptions={({route}) => ({
-                tabBarIcon: ({color, size}) => {
-                  switch (route.name){
-                    case "Home":
-                      return (
-                        <House size={size} color={color} />
-                      )
+              screenOptions={({ route }) => ({
+                tabBarIcon: ({ color, size }) => {
+                  switch (route.name) {
+                    case "HomeNavigation":
+                      return <House size={size} color={color} />;
                     case "Friends":
-                      return (
-                        <UsersThree size={size} color={color} />
-                      )
+                      return <UsersThree size={size} color={color} />;
                     case "Profile":
-                      return (
-                        <User size={size} color={color} />
-                      )
+                      return <User size={size} color={color} />;
                   }
                 },
-                tabBarStyle: {backgroundColor: THEME.COLORS.BACKGROUND_900},
+                tabBarStyle: { backgroundColor: THEME.COLORS.BACKGROUND_800 },
                 tabBarShowLabel: false,
                 headerShown: false,
               })}
             >
-              <Tab.Screen name="Home" component={Home} />
+              <Tab.Screen
+                name="HomeNavigation"
+                component={HomeNavigationScreen}
+              />
               <Tab.Screen name="Friends" component={Friends} />
               <Tab.Screen name="Profile" component={Profile} />
             </Tab.Navigator>
@@ -108,7 +106,9 @@ function App() {
 export default () => {
   return (
     <AuthProvider>
-      <App />
+      <PostProvider>
+        <App />
+      </PostProvider>
     </AuthProvider>
   );
 };

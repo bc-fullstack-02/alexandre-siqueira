@@ -5,12 +5,12 @@ import api from "../../services/api";
 import { Auth, AuthForm } from "../../components/AuthForm";
 import { styles } from "./styles";
 
-interface SingUpProps{
+interface SignUpProps{
   navigation: NativeStackNavigationProp<any, any>
 }
 
 
-export function SingUp({ navigation }: SingUpProps){
+export function SignUp({ navigation }: SignUpProps){
 
   function handleLoginClick(){
     navigation.navigate("Login");

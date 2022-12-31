@@ -1,12 +1,22 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { View, Text } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-import { styles } from "./styles"
+import { styles } from "./styles";
+import { THEME } from "../../theme";
 
-export function Friends(){
-    return (
-        <View style={styles.container}>
-            <Text>Friends</Text>
-        </View>
-    )
+import { FocusAwareStatusBar } from "../../components/FocusAwareStatusBar";
+
+export function Friends() {
+  return (
+    <SafeAreaView style={styles.container}>
+      <FocusAwareStatusBar
+        barStyle="light-content"
+        backgroundColor={THEME.COLORS.BACKGROUND_800}
+      />
+      <View>
+        <Text></Text>
+      </View>
+    </SafeAreaView>
+  );
 }
