@@ -4,44 +4,97 @@
 
 ## Modules:
 
-+ Backend - API 
-+ Frontend - WEB
-+ Frontend - MOBILE
++ [Back-end API](https://github.com/bc-fullstack-02/alexandre-siqueira/tree/main/backend)
++ [Front-end web](https://github.com/bc-fullstack-02/alexandre-siqueira/tree/main/frontend/web)
++ [Mobile](https://github.com/bc-fullstack-02/alexandre-siqueira/tree/main/frontend/mobile)
 
-## Technologies Used in Backend API:
+## Technologies Used:
 
 <table>
   <tr>
-    <td>NodeJS</td>
+    <td>Node.js</td>
+    <td>Express.js</td>
     <td>MongoDB</td>
     <td>Rabbitmq</td>
     <td>Minio</td>
     <td>Docker</td>
   </tr>
   <tr>
-    <td>19.2.0</td>
-    <td>6.0.3</td>
-    <td>3.8</td>
+    <td>18.12.1</td>
+    <td>4.18.2</td>
+    <td>latest</td>
+    <td>3.11</td>
     <td>latest</td>
     <td>20.10.21</td>
   </tr>
 </table>
 
+### Frontend Web:
+
+<table>
+  <tr>
+    <td>Typescript</td>
+    <td>React</td>
+    <td>Vite</td>
+    <td>Tailwind</td>
+  </tr>
+  <tr>
+    <td>4.6.4</td>
+    <td>18.2.0</td>
+    <td>3.2.3</td>
+    <td>3.2.4</td>
+  </tr>
+</table>
+
+### Mobile:
+
+<table>
+  <tr>
+    <td>Typescript</td>
+    <td>React Native</td>
+  </tr>
+  <tr>
+    <td> ^4.6.3 </td>
+    <td> 0.70.5 </td>
+  </tr>
+</table>
+
 ## How to run the application:
 
-1) create directory for project: mkdir app
-2) move for diretory created: cd app
-3) git clone https://github.com/bc-fullstack-02/alexandre-siqueira.git or git@github.com:bc-fullstack-02/alexandre-siqueira.git
-4) move for directory backend: cd backend
-5) run command: npm install
-6) run command: docker-compose up
-7) access browser url: http://localhost:4000/api-docs/
+1) clone the project: 
+```
+git clone https://github.com/bc-fullstack-02/alexandre-siqueira
+```
+2) go to *API* directory in *backend* directory
+3) install back-end dependencies:
+```
+npm install
+```
+4) start the server and the services:
+```
+docker-compose up -d
+```
+*in case of server error, repeat `docker-compose up -d` after the services are successfully running
 
-## Addictional implementations:
-1) add route Unlike in Posts -> /v1/posts/:id/unlike
-2) add route Unlike in Comments -> /v1/:postId/comments/:id/unlike
-3) When deleting User, I added profile deletion
-4) add method put in route profiles, for updates on frontend
-5) add field image and imageUrl in profile model
-6) modified order recent post first in Feed response
+5) go to *Parrot Social Network* directory in *frontend* directory, after *web*
+6) install front-end dependencies:
+```
+npm install
+```
+7) start the front-end
+```
+npm run dev
+```
+8) access browser url: 
+- Web Application: http://localhost:5173
+- Api Swagger Documentation: http://localhost:4000/api-docs/
+
+## Author
+
+- [@aspli](https://github.com/aspli)
+
+
+## Links
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/aspli/)
+
 
